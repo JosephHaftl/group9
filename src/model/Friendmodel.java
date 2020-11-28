@@ -27,7 +27,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Friendmodel.findById", query = "SELECT f FROM Friendmodel f WHERE f.id = :id")
     , @NamedQuery(name = "Friendmodel.findByName", query = "SELECT f FROM Friendmodel f WHERE f.name = :name")
     , @NamedQuery(name = "Friendmodel.findByStatus", query = "SELECT f FROM Friendmodel f WHERE f.status = :status")
-    , @NamedQuery(name = "Friendmodel.findByNotes", query = "SELECT f FROM Friendmodel f WHERE f.notes = :notes")})
+    , @NamedQuery(name = "Friendmodel.findByNotes", query = "SELECT f FROM Friendmodel f WHERE f.notes = :notes")
+    //search Queries
+    , @NamedQuery(name = "Friendmodel.findByNameAdvanced", query = "SELECT f FROM Friendmodel f WHERE  LOWER(f.name) LIKE  CONCAT('%', LOWER(:name), '%')")
+
+})
 public class Friendmodel implements Serializable {
 
     private static final long serialVersionUID = 1L;

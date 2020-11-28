@@ -10,6 +10,7 @@
     <class>model.Privatemessagemodel</class>
     <class>model.Sharemodel</class>
     <class>model.Trendingmodel</class>
+    <class>model.Createpostmodel</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/gp9_db;create=true"/>
       <property name="javax.persistence.jdbc.user" value="APP"/>
