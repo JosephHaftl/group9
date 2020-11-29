@@ -38,8 +38,8 @@ public class Createpostmodel implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Column(name = "DATE")
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    //@Temporal(TemporalType.DATE)
+    private String date;
     @Column(name = "POST")
     private String post;
 
@@ -58,11 +58,11 @@ public class Createpostmodel implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
