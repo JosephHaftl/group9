@@ -128,6 +128,28 @@ public class HomePageController implements Initializable {
 
     @FXML
     void updatePost(ActionEvent event) {
+        //inspired from demo code
+        Scanner sc = new Scanner(System.in);
+      
+        System.out.println("Enter ID: ");
+        int id = sc.nextInt();
+        
+        System.out.println("Enter date: (mm/dd/yy) ");
+        String date = sc.next();
+        
+        System.out.println("Update post: ");
+        String post = textboxPost.getText();
+        
+        
+        
+        Createpostmodel yourPost = new Createpostmodel();
+        
+        yourPost.setId(id);
+        yourPost.setDate(date);
+        yourPost.setPost(post);
+        
+        update(yourPost);
+        
 
     }
     
@@ -179,10 +201,36 @@ public class HomePageController implements Initializable {
         
         return posts;
     }
+         
+     public void update (Createpostmodel yourPost){
+          try {
+
+            Createpostmodel existingPost = manager.find(Createpostmodel.class, yourPost.getId());
+
+            if (existingPost != null) {
+
+                manager.getTransaction().begin();
+
+                existingPost.setId(yourPost.getId());
+                existingPost.setDate(yourPost.getDate());
+                existingPost.setPost(yourPost.getPost());
+               
+                manager.getTransaction().commit();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+      }
+     
+     
+     
+     
+     }
+             
 
     
     
-}
+
 
 
 
