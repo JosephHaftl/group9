@@ -26,13 +26,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import model.Createpostmodel;
+import model.Friendmodel;
 
 public class HomePageController implements Initializable {
-
+    @FXML
+    private TextField textboxPost;
+   
     @FXML
     private ResourceBundle resources;
 
@@ -94,8 +99,8 @@ public class HomePageController implements Initializable {
             System.out.println("Parse Exception");
         }
         
-        System.out.println("Enter Your Post: ");
-        String post = input.nextLine();
+        //System.out.println("Enter Your Post: ");
+        String post = textboxPost.getText();
         
         // create a post instance
         Createpostmodel yourPost = new Createpostmodel();
@@ -107,10 +112,15 @@ public class HomePageController implements Initializable {
         
         //save this student to the database by calling Create operation
         create(yourPost);
-        
-         
+        List<Createpostmodel> Posts = readAll();
+        setTableData(Posts);
     }
-
+    @FXML
+    void viewPost (ActionEvent event) {
+    List<Createpostmodel> Posts = readAll();
+    setTableData(Posts);
+    }
+    
     @FXML
     void deletePost(ActionEvent event) {
 
@@ -120,6 +130,7 @@ public class HomePageController implements Initializable {
     void updatePost(ActionEvent event) {
 
     }
+    
 
     
     //Database Manager
@@ -161,7 +172,14 @@ public class HomePageController implements Initializable {
         }
 
     }
-    
+         public List<Createpostmodel> readAll(){
+    Query query = manager.createNamedQuery("Createpostmodel.findAll");
+        List<Createpostmodel> posts = query.getResultList();
+
+        
+        return posts;
+    }
+
     
     
 }

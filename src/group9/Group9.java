@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  * @author Joseph Haftl
  */
 public class Group9 extends Application {
-    
+ 
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/HomePage.fxml"));
