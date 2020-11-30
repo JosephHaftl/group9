@@ -14,6 +14,7 @@ package controller;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,12 +26,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import model.Createpostmodel;
 import model.Friendmodel;
 
@@ -122,8 +125,26 @@ public class HomePageController implements Initializable {
     }
     
     @FXML
+    void updateSelect (ActionEvent event) {
+        
+    }
+    
+    @FXML
     void deletePost(ActionEvent event) {
-
+    TablePosition pos = postTable.getSelectionModel().getSelectedCells().get(0);
+    int id = pos.getRow();
+    id = id +1 ;   
+        
+    postTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    ObservableList<Createpostmodel> selectedRows = postTable.getSelectionModel().getSelectedItems();
+    ArrayList<Createpostmodel> rows = new ArrayList<>(selectedRows);
+    rows.forEach(row -> postTable.getItems().remove(row));
+    
+    System.out.println(id);
+    
+    delete(readById(id));
+    
+   
     }
 
     @FXML
@@ -221,7 +242,40 @@ public class HomePageController implements Initializable {
             System.out.println(ex.getMessage());
         }
       }
-     
+      public void delete(Createpostmodel post) {
+        try {
+            Createpostmodel existingPost = manager.find(Createpostmodel.class, post.getId());
+
+            // sanity check
+            if (existingPost != null) {
+                
+                // begin transaction
+                manager.getTransaction().begin();
+                
+                //remove student
+                manager.remove(existingPost);
+                
+                // end transaction
+                manager.getTransaction().commit();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+      public Createpostmodel readById(int id){
+        Query query = manager.createNamedQuery("Createpostmodel.findById");
+        
+        // setting query parameter
+        query.setParameter("id", id);
+        
+        // execute query
+        Createpostmodel post = (Createpostmodel) query.getSingleResult();
+        if (post != null) {
+        
+        }
+        
+        return post;
+    } 
      
      
      
