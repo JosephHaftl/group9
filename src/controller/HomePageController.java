@@ -90,7 +90,7 @@ public class HomePageController implements Initializable {
         ////https://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo
         input.nextLine();
 
-        System.out.println("Enter Todays Date (mm-dd-yy): ");
+        System.out.println("Enter Todays Date (mm/dd/yyyy): ");
         String str = input.nextLine();
         
         
@@ -127,8 +127,13 @@ public class HomePageController implements Initializable {
     }
     
     @FXML
-    void updateSelect (ActionEvent event) {
-        
+    void deletePostSimple(ActionEvent event){
+    Scanner input = new Scanner(System.in);
+    System.out.println("Enter the id of the post you wish to delete");
+    int id = input.nextInt();
+    delete(readById(id));
+    List<Createpostmodel> Posts = readAll();
+    setTableData(Posts);
     }
     
     @FXML
@@ -159,7 +164,7 @@ public class HomePageController implements Initializable {
         System.out.println("Enter ID: ");
         int id = sc.nextInt();
         
-        System.out.println("Enter date: (mm-dd-yy) ");
+        System.out.println("Enter New date: (mm/dd/yyyy) ");
         String date = sc.next();
         
         //System.out.println("Update post: ");
@@ -175,7 +180,8 @@ public class HomePageController implements Initializable {
         
         update(yourPost);
         
-
+        List<Createpostmodel> Posts = readAll();
+        setTableData(Posts);
     }
     
 

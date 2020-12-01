@@ -33,6 +33,6 @@
       <Button layoutX="517.0" layoutY="188.0" mnemonicParsing="false" onAction="#deletePost" text="Delete" />
       <Button layoutX="406.0" layoutY="158.0" mnemonicParsing="false" onAction="#updatePost" text="Update" />
       <Button layoutX="320.0" layoutY="158.0" mnemonicParsing="false" onAction="#viewPost" text="View Posts" />
-      <Button layoutX="515.0" layoutY="225.0" mnemonicParsing="false" onAction="#updateSelect" text="Update" />
+      <Button layoutX="507.0" layoutY="226.0" mnemonicParsing="false" onAction="#deletePostSimple" text="Delete Simple" />
    </children>
 </AnchorPane>
