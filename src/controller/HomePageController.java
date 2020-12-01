@@ -90,19 +90,19 @@ public class HomePageController implements Initializable {
         ////https://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo
         input.nextLine();
 
-        System.out.println("Enter Todays Date (MM/dd/yy): ");
+        System.out.println("Enter Todays Date (mm-dd-yy): ");
         String str = input.nextLine();
         
-        try{
-            Date date = sdf.parse(str);
-            
-            sdf = new SimpleDateFormat("MM dd yy");
-            System.out.println(sdf.format(date)); 
-        } catch (ParseException e) {
-            System.out.println("Parse Exception");
-        }
         
-        //System.out.println("Enter Your Post: ");
+//        try{
+//            Date date = sdf.parse(str);
+//            
+//            sdf = new SimpleDateFormat("MM dd yy");
+//            System.out.println(sdf.format(date)); 
+//        } catch (ParseException e) {
+//            System.out.println("Parse Exception");
+//        }
+        
         String post = textboxPost.getText();
         
         // create a post instance
@@ -118,6 +118,8 @@ public class HomePageController implements Initializable {
         List<Createpostmodel> Posts = readAll();
         setTableData(Posts);
     }
+    
+    
     @FXML
     void viewPost (ActionEvent event) {
     List<Createpostmodel> Posts = readAll();
@@ -131,18 +133,20 @@ public class HomePageController implements Initializable {
     
     @FXML
     void deletePost(ActionEvent event) {
-    TablePosition pos = postTable.getSelectionModel().getSelectedCells().get(0);
-    int id = pos.getRow();
-    id = id +1 ;   
+        TablePosition pos = postTable.getSelectionModel().getSelectedCells().get(0);
         
-    postTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    ObservableList<Createpostmodel> selectedRows = postTable.getSelectionModel().getSelectedItems();
-    ArrayList<Createpostmodel> rows = new ArrayList<>(selectedRows);
-    rows.forEach(row -> postTable.getItems().remove(row));
+        int id = pos.getRow();
+        id = id +1 ;   
+        
+        postTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        ObservableList<Createpostmodel> selectedRows = postTable.getSelectionModel().getSelectedItems();
+        ArrayList<Createpostmodel> rows = new ArrayList<>(selectedRows);
+        rows.forEach(row -> postTable.getItems().remove(row));
     
-    System.out.println(id);
+        
+        System.out.println(id);
     
-    delete(readById(id));
+        delete(readById(id));
     
    
     }
@@ -155,10 +159,10 @@ public class HomePageController implements Initializable {
         System.out.println("Enter ID: ");
         int id = sc.nextInt();
         
-        System.out.println("Enter date: (mm/dd/yy) ");
+        System.out.println("Enter date: (mm-dd-yy) ");
         String date = sc.next();
         
-        System.out.println("Update post: ");
+        //System.out.println("Update post: ");
         String post = textboxPost.getText();
         
         
@@ -223,26 +227,30 @@ public class HomePageController implements Initializable {
         return posts;
     }
          
-     public void update (Createpostmodel yourPost){
-          try {
+    public void update (Createpostmodel yourPost){
+        try {
 
             Createpostmodel existingPost = manager.find(Createpostmodel.class, yourPost.getId());
+            
+            manager.getTransaction().begin();
 
-            if (existingPost != null) {
-
-                manager.getTransaction().begin();
+            if (existingPost != null) {       
 
                 existingPost.setId(yourPost.getId());
                 existingPost.setDate(yourPost.getDate());
                 existingPost.setPost(yourPost.getPost());
                
                 manager.getTransaction().commit();
+                System.out.println(yourPost.toString() + "has been updated"); 
+
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-      }
-      public void delete(Createpostmodel post) {
+    }
+    
+    
+    public void delete(Createpostmodel post) {
         try {
             Createpostmodel existingPost = manager.find(Createpostmodel.class, post.getId());
 
@@ -258,11 +266,14 @@ public class HomePageController implements Initializable {
                 // end transaction
                 manager.getTransaction().commit();
             }
+            
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
-      public Createpostmodel readById(int id){
+      
+      
+    public Createpostmodel readById(int id){
         Query query = manager.createNamedQuery("Createpostmodel.findById");
         
         // setting query parameter
@@ -279,7 +290,7 @@ public class HomePageController implements Initializable {
      
      
      
-     }
+}
              
 
     
