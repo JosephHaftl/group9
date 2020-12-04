@@ -139,7 +139,7 @@ public class HomePageController implements Initializable {
     @FXML
     void deletePost(ActionEvent event) {
         TablePosition pos = postTable.getSelectionModel().getSelectedCells().get(0);
-        
+
         int id = pos.getRow();
         id = id +1 ;   
         
