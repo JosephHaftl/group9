@@ -4,35 +4,33 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomePageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomePageController">
    <children>
-      <Text layoutX="237.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Post">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Text>
-      <Text layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" wrappingWidth="66.32421875">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
-      <TextField fx:id="textboxPost" layoutX="81.0" layoutY="158.0" prefHeight="25.0" prefWidth="175.0" />
-      <Text layoutX="23.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Post Text" />
-      <TableView fx:id="postTable" layoutX="93.0" layoutY="186.0" prefHeight="200.0" prefWidth="414.0">
+      <TableView fx:id="postTable" layoutX="74.0" layoutY="251.0" prefHeight="262.0" prefWidth="414.0">
         <columns>
           <TableColumn fx:id="ID" prefWidth="95.0" text="PostID" />
           <TableColumn fx:id="Date" prefWidth="96.0" text="PostDate" />
             <TableColumn fx:id="Post" prefWidth="220.0" text="Post" />
         </columns>
       </TableView>
-      <Button layoutX="263.0" layoutY="158.0" mnemonicParsing="false" onAction="#createPost" text="Create" />
-      <Button layoutX="517.0" layoutY="188.0" mnemonicParsing="false" onAction="#deletePost" text="Delete" />
-      <Button layoutX="406.0" layoutY="158.0" mnemonicParsing="false" onAction="#updatePost" text="Update" />
-      <Button layoutX="320.0" layoutY="158.0" mnemonicParsing="false" onAction="#viewPost" text="View Posts" />
-      <Button layoutX="507.0" layoutY="226.0" mnemonicParsing="false" onAction="#deletePostSimple" text="Delete Simple" />
+      <Button layoutX="446.0" layoutY="525.0" mnemonicParsing="false" onAction="#deletePost" prefHeight="27.0" prefWidth="63.0" text="Delete" />
+      <ImageView fitHeight="72.0" fitWidth="86.0" layoutX="2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@af25daf8bce653ec9eaca859569d360d.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="165.0" layoutY="26.0" mnemonicParsing="false" text="Friends" />
+      <Button layoutX="250.0" layoutY="26.0" mnemonicParsing="false" text="Home" />
+      <Button layoutX="327.0" layoutY="26.0" mnemonicParsing="false" text="Profile" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8f8f8" height="105.0" layoutX="92.0" layoutY="107.0" stroke="#979797" strokeType="INSIDE" width="374.0" />
+      <TextField fx:id="textboxPost" layoutX="149.0" layoutY="123.0" prefHeight="27.0" prefWidth="252.0" promptText="What's on your mind?" />
+      <Button layoutX="136.0" layoutY="170.0" mnemonicParsing="false" onAction="#createPost" text="Create" />
+      <Button layoutX="231.0" layoutY="170.0" mnemonicParsing="false" onAction="#viewPost" text="View Posts" />
+      <Button layoutX="355.0" layoutY="170.0" mnemonicParsing="false" onAction="#updatePost" text="Update" />
    </children>
 </AnchorPane>
