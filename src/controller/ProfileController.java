@@ -1,8 +1,11 @@
 package controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -19,6 +22,7 @@ import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import model.Createpostmodel;
 import model.Profilemodel;
 
 public class ProfileController {
@@ -51,7 +55,7 @@ public class ProfileController {
     private Button backButton;
     
     @FXML
-    private TableView<?> profileTable;
+    private TableView<Profilemodel> profileTable;
     
     @FXML
     private TableColumn<Profilemodel, Integer> ID;
@@ -68,6 +72,8 @@ public class ProfileController {
     @FXML
     private TableColumn<Profilemodel, String> Bio;
 
+    private ObservableList<Profilemodel> profileData;
+    
     @FXML
     void goBack(ActionEvent event) {
      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -76,6 +82,7 @@ public class ProfileController {
             stage.setScene(previousScene);
         }
     }
+     
     
     Profilemodel selectedModel;
     Scene previousScene;
@@ -85,7 +92,7 @@ public class ProfileController {
         backButton.setDisable(false);
     }
        
-    
+       
     @FXML
     void createProfile(ActionEvent event) {
         Scanner scn = new Scanner(System.in);
@@ -161,6 +168,26 @@ public class ProfileController {
         update(profile);
         
     }
+        
+    
+        public void setTableData(List<Profilemodel> profiles){
+        
+        profileData = FXCollections.observableArrayList();
+        
+        profiles.forEach(s -> {
+            profileData.add(s);
+        });
+        
+        profileTable.setItems(profileData);
+        profileTable.refresh();
+    } 
+    
+    @FXML
+    void viewProfiles(ActionEvent event) {
+        List<Profilemodel> profiles = readAll();
+        setTableData(profiles);
+    }
+    
     
     
     EntityManager manager;
@@ -255,8 +282,17 @@ public class ProfileController {
             
         }
     }
+       
+    public List<Profilemodel> readAll(){
+        Query query = manager.createNamedQuery("Profilemodel.findAll");
+        List<Profilemodel> profile = query.getResultList();
+        
+       return profile;
+        
+       } 
+    
     public Profilemodel readById(int id){
-        Query query = manager.createNamedQuery("Likemodel.findById");
+        Query query = manager.createNamedQuery("Profilemodel.findById");
         
         // setting query parameter
         query.setParameter("id", id);
@@ -282,7 +318,7 @@ public class ProfileController {
         assert profilepic != null : "fx:id=\"profilepic\" was not injected: check your FXML file 'ProfilePage.fxml'.";
         assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'ProfilePage.fxml'.";
         assert profileTable != null : "fx:id=\"profileTable\" was not injected: check your FXML file 'ProfilePage.fxml'.";
-
+        
     }
 }
 

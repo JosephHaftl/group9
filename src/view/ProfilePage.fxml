@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
@@ -22,7 +23,11 @@
       <Text layoutX="14.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Graduation Year:" />
       <TextArea fx:id="bioField" layoutX="429.0" layoutY="287.0" prefHeight="128.0" prefWidth="200.0" />
       <Text layoutX="450.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Biography:" />
-      <ImageView fx:id="profilepic" fitHeight="150.0" fitWidth="200.0" layoutX="421.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="profilepic" fitHeight="150.0" fitWidth="200.0" layoutX="443.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../NicoleCooneyFXML/src/resource/images/tim.png" />
+         </image>
+      </ImageView>
       <Button fx:id="backButton" layoutX="22.0" layoutY="31.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
       <TableView fx:id="profileTable" layoutX="42.0" layoutY="237.0" prefHeight="200.0" prefWidth="379.0">
         <columns>
@@ -36,5 +41,6 @@
       <Button layoutX="315.0" layoutY="63.0" mnemonicParsing="false" onAction="#createProfile" text="Create" />
       <Button layoutX="315.0" layoutY="97.0" mnemonicParsing="false" onAction="#updateProfile" text="Update" />
       <Button layoutX="315.0" layoutY="132.0" mnemonicParsing="false" onAction="#deleteProfile" text="Delete" />
+      <Button layoutX="314.0" layoutY="166.0" mnemonicParsing="false" onAction="#viewProfiles" text="View Profiles" />
    </children>
 </AnchorPane>
