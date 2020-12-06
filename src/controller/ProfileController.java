@@ -1,0 +1,288 @@
+package controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.Scanner;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import model.Profilemodel;
+
+public class ProfileController {
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private TextField idField;
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField ageField;
+
+    @FXML
+    private TextField gradyrField;
+
+    @FXML
+    private TextArea bioField;
+
+    @FXML
+    private ImageView profilepic;
+    
+    @FXML
+    private Button backButton;
+    
+    @FXML
+    private TableView<?> profileTable;
+    
+    @FXML
+    private TableColumn<Profilemodel, Integer> ID;
+
+    @FXML
+    private TableColumn<Profilemodel, String> Name;
+
+    @FXML
+    private TableColumn<Profilemodel, Integer> Age;
+
+    @FXML
+    private TableColumn<Profilemodel, Integer> Gradyr;
+    
+    @FXML
+    private TableColumn<Profilemodel, String> Bio;
+
+    @FXML
+    void goBack(ActionEvent event) {
+     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        if (previousScene != null) {
+            stage.setScene(previousScene);
+        }
+    }
+    
+    Profilemodel selectedModel;
+    Scene previousScene;
+    
+        public void setPreviousScene(Scene scene) {
+        previousScene = scene;
+        backButton.setDisable(false);
+    }
+       
+    
+    @FXML
+    void createProfile(ActionEvent event) {
+        Scanner scn = new Scanner(System.in);
+        
+        System.out.println("Enter ID:");
+        int id = scn.nextInt();
+        
+        System.out.println("Enter Name:");
+        String name = scn.next();
+        
+        System.out.println("Enter Age");
+        int age = scn.nextInt();
+        
+        System.out.println("Enter Graduation Year");
+        int gradyr = scn.nextInt();
+        
+        // create a like instance
+        Profilemodel profile = new Profilemodel();
+        
+        // set properties
+        profile.setId(id);
+        profile.setName(name);
+        profile.setAge(age);
+        profile.setGradyear(gradyr);
+        
+        // save this student to databse by calling Create operation        
+        create(profile);
+
+    }
+
+    @FXML
+    void deleteProfile(ActionEvent event) {
+        Scanner input = new Scanner(System.in);
+        
+         // read input from command line
+        System.out.println("Enter ID of the profile you'd like to delete:");
+        int id = input.nextInt();
+        
+        Profilemodel profile = readById(id);
+        System.out.println("we are deleting this profile: "+ profile.toString());
+        delete(profile);
+    }
+
+    @FXML
+    void updateProfile(ActionEvent event) {
+        Scanner scn = new Scanner(System.in);
+        
+        System.out.println("Enter ID:");
+        int id = scn.nextInt();
+        
+        System.out.println("Enter Name:");
+        String name = scn.next();
+        
+        System.out.println("Enter Age");
+        int age = scn.nextInt();
+        
+        System.out.println("Enter Graduation Year");
+        int gradyr = scn.nextInt();
+        
+        System.out.println("Enter Bio");
+        String bio = scn.next();
+        
+        // create a like instance
+        Profilemodel profile = new Profilemodel();
+        
+        // set properties
+        profile.setId(id);
+        profile.setName(name);
+        profile.setAge(age);
+        profile.setGradyear(gradyr);
+        
+        // save this student to databse by calling Create operation        
+        update(profile);
+        
+    }
+    
+    
+    EntityManager manager;
+    
+     //@Override
+     public void initialize(URL url, ResourceBundle rb) {
+         // loading data from database
+        //database reference: "IntroJavaFXPU"
+        manager = (EntityManager) Persistence.createEntityManagerFactory("group9PU").createEntityManager();
+        
+        ID.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        Name.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        Age.setCellValueFactory(new PropertyValueFactory<>("Age"));
+        Gradyr.setCellValueFactory(new PropertyValueFactory<>("Gradyear"));
+        Bio.setCellValueFactory(new PropertyValueFactory<>("Bio"));
+        
+
+        //eanble row selection
+        // (SelectionMode.MULTIPLE);
+        profileTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+     }
+    
+    public void create(Profilemodel like) {
+        try {
+            // begin transaction
+            manager.getTransaction().begin();
+            
+            // sanity check
+            if (like.getId() != null) {
+                
+                // create student
+                manager.persist(like);
+                
+                // end transaction
+                manager.getTransaction().commit();
+                
+                System.out.println(like.toString() + " is created");
+                
+            }
+           
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    public void update(Profilemodel model) {
+        try {
+
+            Profilemodel existingProfile = manager.find(Profilemodel.class, model.getId());
+
+            if (existingProfile != null) {
+                // begin transaction
+                manager.getTransaction().begin();
+                
+                existingProfile.setName(model.getName());
+                existingProfile.setAge(model.getAge());
+                existingProfile.setGradyear(model.getGradyear());
+                existingProfile.setBio(model.getBio());
+                
+                
+                // update all atttributes
+//                existingLike.setName(model.getName());
+//                existingLike.setLikepost(model.getLikepost());
+//                existingLike.setLikeid(model.getLikeid());
+                
+                // end transaction
+                manager.getTransaction().commit();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+       public void delete(Profilemodel like) {
+        try {
+            Profilemodel existingLike = manager.find(Profilemodel.class, like.getId());
+
+            // sanity check
+            if (existingLike != null) {
+                
+                
+                // begin transaction
+                manager.getTransaction().begin();
+                
+                //remove student
+                manager.remove(existingLike);
+                
+                // end transaction
+                manager.getTransaction().commit();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            
+        }
+    }
+    public Profilemodel readById(int id){
+        Query query = manager.createNamedQuery("Likemodel.findById");
+        
+        // setting query parameter
+        query.setParameter("id", id);
+        
+        // execute query
+        Profilemodel profile = (Profilemodel) query.getSingleResult();
+        if (profile != null) {
+            System.out.println(profile.getId() + " " + profile.getName() + " " + profile.getAge() + " " 
+                    + profile.getGradyear() + " " + profile.getBio());
+        }
+        
+        return profile;
+    }  
+    
+
+    @FXML
+    void initialize() {
+        assert idField != null : "fx:id=\"idField\" was not injected: check your FXML file 'ProfilePage.fxml'.";
+        assert nameField != null : "fx:id=\"nameField\" was not injected: check your FXML file 'ProfilePage.fxml'.";
+        assert ageField != null : "fx:id=\"ageField\" was not injected: check your FXML file 'ProfilePage.fxml'.";
+        assert gradyrField != null : "fx:id=\"gradyrField\" was not injected: check your FXML file 'ProfilePage.fxml'.";
+        assert bioField != null : "fx:id=\"bioField\" was not injected: check your FXML file 'ProfilePage.fxml'.";
+        assert profilepic != null : "fx:id=\"profilepic\" was not injected: check your FXML file 'ProfilePage.fxml'.";
+        assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'ProfilePage.fxml'.";
+        assert profileTable != null : "fx:id=\"profileTable\" was not injected: check your FXML file 'ProfilePage.fxml'.";
+
+    }
+}
+

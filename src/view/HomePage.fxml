@@ -26,7 +26,7 @@
       </ImageView>
       <Button layoutX="165.0" layoutY="26.0" mnemonicParsing="false" text="Friends" />
       <Button layoutX="250.0" layoutY="26.0" mnemonicParsing="false" text="Home" />
-      <Button layoutX="327.0" layoutY="26.0" mnemonicParsing="false" text="Profile" />
+      <Button layoutX="327.0" layoutY="26.0" mnemonicParsing="false" onAction="#actionshowProfile" text="Profile" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8f8f8" height="105.0" layoutX="92.0" layoutY="107.0" stroke="#979797" strokeType="INSIDE" width="374.0" />
       <TextField fx:id="textboxPost" layoutX="149.0" layoutY="123.0" prefHeight="27.0" prefWidth="252.0" promptText="What's on your mind?" />
       <Button layoutX="136.0" layoutY="170.0" mnemonicParsing="false" onAction="#createPost" text="Create" />

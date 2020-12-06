@@ -215,6 +215,26 @@ public class HomePageController implements Initializable {
         stage.show();      
     }
     
+    @FXML
+    void actionshowProfile(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfilePage.fxml"));
+
+        Parent MessagePage = loader.load();
+
+        Scene messageViewScene = new Scene(MessagePage);
+
+       // MessageController detailedControlled = loader.getController();
+        
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        //detailedControlled.setPreviousScene(currentScene);
+        
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(messageViewScene);
+        stage.show(); 
+        
+
+    }
 
     //Database Manager
     EntityManager manager;
