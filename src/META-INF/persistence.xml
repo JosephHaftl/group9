@@ -7,11 +7,11 @@
     <class>model.Groupmessagemodel</class>
     <class>model.Groupmodel</class>
     <class>model.Likemodel</class>
-    <class>model.Privatemessagemodel</class>
     <class>model.Sharemodel</class>
     <class>model.Trendingmodel</class>
     <class>model.Createpostmodel</class>
     <class>model.Profilemodel</class>
+    <class>model.Messagemodel</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/gp9_db;create=true"/>
       <property name="javax.persistence.jdbc.user" value="APP"/>

@@ -21,7 +21,7 @@
       <Button layoutX="446.0" layoutY="525.0" mnemonicParsing="false" onAction="#deletePost" prefHeight="27.0" prefWidth="63.0" text="Delete" />
       <ImageView fitHeight="72.0" fitWidth="86.0" layoutX="2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@af25daf8bce653ec9eaca859569d360d.png" />
+            <Image url="@../../../../af25daf8bce653ec9eaca859569d360d.png" />
          </image>
       </ImageView>
       <Button layoutX="165.0" layoutY="26.0" mnemonicParsing="false" text="Friends" />
@@ -32,5 +32,6 @@
       <Button layoutX="136.0" layoutY="170.0" mnemonicParsing="false" onAction="#createPost" text="Create" />
       <Button layoutX="231.0" layoutY="170.0" mnemonicParsing="false" onAction="#viewPost" text="View Posts" />
       <Button layoutX="355.0" layoutY="170.0" mnemonicParsing="false" onAction="#updatePost" text="Update" />
+      <Button layoutX="469.0" layoutY="26.0" mnemonicParsing="false" onAction="#actionShowMessages" text="Messages" />
    </children>
 </AnchorPane>

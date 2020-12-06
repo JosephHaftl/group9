@@ -11,6 +11,7 @@ package controller;
  */
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,19 +24,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import model.Createpostmodel;
 import model.Friendmodel;
+import model.Messagemodel;
 
 public class HomePageController implements Initializable {
     @FXML
@@ -46,6 +53,9 @@ public class HomePageController implements Initializable {
 
     @FXML
     private URL location;
+    
+    @FXML
+    private TableView<Messagemodel> messageTable;
     
     @FXML
     private TableView<Createpostmodel> postTable;
@@ -182,6 +192,37 @@ public class HomePageController implements Initializable {
         
         List<Createpostmodel> Posts = readAll();
         setTableData(Posts);
+    }
+    
+    
+    @FXML
+    public void actionShowMessages(ActionEvent event) throws IOException {
+        
+//        Parent messagePageParent = FXMLLoader.load(getClass().getResource("/view/MessagePage.fxml"));
+//        Scene messagePage = new Scene(messagePageParent);
+//        
+//        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+//        
+//        window.setScene(messagePage);
+//        window.show();
+
+             
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MessagePage.fxml"));
+
+        Parent MessagePage = loader.load();
+
+        Scene messageViewScene = new Scene(MessagePage);
+
+       // MessageController detailedControlled = loader.getController();
+        
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        //detailedControlled.setPreviousScene(currentScene);
+        
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(messageViewScene);
+        stage.show();
+        
     }
     
 
