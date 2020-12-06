@@ -198,15 +198,6 @@ public class HomePageController implements Initializable {
     @FXML
     public void actionShowMessages(ActionEvent event) throws IOException {
         
-//        Parent messagePageParent = FXMLLoader.load(getClass().getResource("/view/MessagePage.fxml"));
-//        Scene messagePage = new Scene(messagePageParent);
-//        
-//        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        
-//        window.setScene(messagePage);
-//        window.show();
-
-             
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MessagePage.fxml"));
 
         Parent MessagePage = loader.load();
@@ -221,12 +212,10 @@ public class HomePageController implements Initializable {
         Stage stage = (Stage) currentScene.getWindow();
 
         stage.setScene(messageViewScene);
-        stage.show();
-        
+        stage.show();      
     }
     
 
-    
     //Database Manager
     EntityManager manager;
 
