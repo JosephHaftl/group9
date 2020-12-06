@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import model.Createpostmodel;
 import model.Messagemodel;
 
@@ -99,15 +100,15 @@ public class MessageController implements Initializable {
         
         //save this student to the database by calling Create operation
         create(yourMessage);
-        //List<Messagemodel> messages = readAll();
-        //setTableData(messages);
+        List<Messagemodel> messages = readAll();
+        setTableData(messages);
     }
     
     
     @FXML
     void viewMessage (ActionEvent event) {
-    //List<Messagemodel> messages = readAll();
-    //setTableData(messages);
+        List<Messagemodel> messages = readAll();
+        setTableData(messages);
     }
 
     
@@ -161,6 +162,14 @@ public class MessageController implements Initializable {
         }
 
     }
+    
+    public List<Messagemodel> readAll(){
+        //inspiration taken from demo code
+        Query query = manager.createNamedQuery("Messagemodel.findAll");
+        List<Messagemodel> yourMessage = query.getResultList();
+ 
+        return yourMessage;
+    }  
     
     
     

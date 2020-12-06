@@ -132,8 +132,8 @@ public class HomePageController implements Initializable {
     
     @FXML
     void viewPost (ActionEvent event) {
-    List<Createpostmodel> Posts = readAll();
-    setTableData(Posts);
+        List<Createpostmodel> Posts = readAll();
+        setTableData(Posts);
     }
     
     @FXML
@@ -266,8 +266,8 @@ public class HomePageController implements Initializable {
         }
 
     }
-         public List<Createpostmodel> readAll(){
-    Query query = manager.createNamedQuery("Createpostmodel.findAll");
+    public List<Createpostmodel> readAll(){
+        Query query = manager.createNamedQuery("Createpostmodel.findAll");
         List<Createpostmodel> posts = query.getResultList();
 
         

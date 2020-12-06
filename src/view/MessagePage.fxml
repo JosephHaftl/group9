@@ -19,7 +19,7 @@
       <Button layoutX="250.0" layoutY="26.0" mnemonicParsing="false" text="Home" />
       <Button layoutX="327.0" layoutY="26.0" mnemonicParsing="false" text="Profile" />
       <Button layoutX="469.0" layoutY="26.0" mnemonicParsing="false" text="Messages" />
-      <TableView layoutX="101.0" layoutY="97.0" prefHeight="391.0" prefWidth="378.0">
+      <TableView fx:id="messageTable" layoutX="101.0" layoutY="97.0" prefHeight="391.0" prefWidth="378.0">
         <columns>
           <TableColumn fx:id="ID" prefWidth="39.055686950683594" text="ID" />
           <TableColumn fx:id="Name" prefWidth="89.08273315429688" text="Name" />
