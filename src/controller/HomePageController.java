@@ -148,16 +148,17 @@ public class HomePageController implements Initializable {
     
     @FXML
     void deletePost(ActionEvent event) {
-        TablePosition pos = postTable.getSelectionModel().getSelectedCells().get(0);
-
-        int id = pos.getRow();
-        id = id +1 ;   
+        //TablePosition pos = postTable.getSelectionModel().getSelectedCells().get(0);
+        //int id = pos.getRow();
+        //id = id +1 ;   
+        Createpostmodel model = postTable.getSelectionModel().getSelectedItem();
+        int id = model.getId();
         
         postTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         ObservableList<Createpostmodel> selectedRows = postTable.getSelectionModel().getSelectedItems();
         ArrayList<Createpostmodel> rows = new ArrayList<>(selectedRows);
         rows.forEach(row -> postTable.getItems().remove(row));
-    
+       
         
         System.out.println(id);
     
@@ -234,6 +235,17 @@ public class HomePageController implements Initializable {
         stage.show(); 
         
 
+    }
+    
+    @FXML
+    void showFriends(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FriendsPage.fxml"));
+        Parent MessagePage = loader.load();
+        Scene messageViewScene = new Scene (MessagePage);
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        Stage stage = (Stage) currentScene.getWindow();
+        stage.setScene(messageViewScene);
+        stage.show(); 
     }
 
     //Database Manager

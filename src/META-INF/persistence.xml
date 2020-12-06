@@ -3,7 +3,6 @@
   <persistence-unit name="group9PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>model.Commentmodel</class>
-    <class>model.Friendmodel</class>
     <class>model.Groupmessagemodel</class>
     <class>model.Groupmodel</class>
     <class>model.Likemodel</class>
@@ -12,6 +11,8 @@
     <class>model.Createpostmodel</class>
     <class>model.Profilemodel</class>
     <class>model.Messagemodel</class>
+    <class>model.Allusers</class>
+    <class>model.Friendmodel</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/gp9_db;create=true"/>
       <property name="javax.persistence.jdbc.user" value="APP"/>

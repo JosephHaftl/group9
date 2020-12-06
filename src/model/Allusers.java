@@ -20,14 +20,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Joseph Haftl
  */
 @Entity
-@Table(name = "FRIENDMODEL")
+@Table(name = "ALLUSERS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Friendmodel.findAll", query = "SELECT f FROM Friendmodel f")
-    , @NamedQuery(name = "Friendmodel.findById", query = "SELECT f FROM Friendmodel f WHERE f.id = :id")
-    , @NamedQuery(name = "Friendmodel.findByName", query = "SELECT f FROM Friendmodel f WHERE f.name = :name")
-    , @NamedQuery(name = "Friendmodel.findByNotes", query = "SELECT f FROM Friendmodel f WHERE f.notes = :notes")})
-public class Friendmodel implements Serializable {
+    @NamedQuery(name = "Allusers.findAll", query = "SELECT a FROM Allusers a")
+    , @NamedQuery(name = "Allusers.findById", query = "SELECT a FROM Allusers a WHERE a.id = :id")
+    , @NamedQuery(name = "Allusers.findByName", query = "SELECT a FROM Allusers a WHERE a.name = :name")
+    , @NamedQuery(name = "Allusers.findByStatus", query = "SELECT a FROM Allusers a WHERE a.status = :status")
+    , @NamedQuery(name = "Allusers.findByNotes", query = "SELECT a FROM Allusers a WHERE a.notes = :notes")})
+public class Allusers implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -36,13 +37,15 @@ public class Friendmodel implements Serializable {
     private Integer id;
     @Column(name = "NAME")
     private String name;
+    @Column(name = "STATUS")
+    private Boolean status;
     @Column(name = "NOTES")
     private String notes;
 
-    public Friendmodel() {
+    public Allusers() {
     }
 
-    public Friendmodel(Integer id) {
+    public Allusers(Integer id) {
         this.id = id;
     }
 
@@ -60,6 +63,14 @@ public class Friendmodel implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public String getNotes() {
@@ -80,10 +91,10 @@ public class Friendmodel implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Friendmodel)) {
+        if (!(object instanceof Allusers)) {
             return false;
         }
-        Friendmodel other = (Friendmodel) object;
+        Allusers other = (Allusers) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -92,7 +103,7 @@ public class Friendmodel implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Friendmodel[ id=" + id + " ]";
+        return "model.Allusers[ id=" + id + " ]";
     }
     
 }
