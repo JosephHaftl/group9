@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -8,7 +9,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
@@ -75,22 +78,83 @@ public class ProfileController {
     private ObservableList<Profilemodel> profileData;
     
     @FXML
-    void goBack(ActionEvent event) {
-     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    void actionshowFriends(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FriendsPage.fxml"));    
+
+        Parent MessagePage = loader.load();
+
+        Scene messageViewScene = new Scene(MessagePage);
+
+       // MessageController detailedControlled = loader.getController();
         
-        if (previousScene != null) {
-            stage.setScene(previousScene);
-        }
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        //detailedControlled.setPreviousScene(currentScene);
+        
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(messageViewScene);
+        stage.show();
+
+
     }
-     
-    
-    Profilemodel selectedModel;
-    Scene previousScene;
-    
-        public void setPreviousScene(Scene scene) {
-        previousScene = scene;
-        backButton.setDisable(false);
+
+    @FXML
+    void actionshowHome(ActionEvent event)throws IOException  {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));    
+
+        Parent MessagePage = loader.load();
+
+        Scene messageViewScene = new Scene(MessagePage);
+
+       // MessageController detailedControlled = loader.getController();
+        
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        //detailedControlled.setPreviousScene(currentScene);
+        
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(messageViewScene);
+        stage.show();
+
     }
+
+    @FXML
+    void actionshowMessages(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MessagePage.fxml"));    
+
+        Parent MessagePage = loader.load();
+
+        Scene messageViewScene = new Scene(MessagePage);
+
+       // MessageController detailedControlled = loader.getController();
+        
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        //detailedControlled.setPreviousScene(currentScene);
+        
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(messageViewScene);
+        stage.show();
+
+
+    }
+//    @FXML
+//    void goBack(ActionEvent event) {
+//     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        
+//        if (previousScene != null) {
+//            stage.setScene(previousScene);
+//        }
+//    }
+//     
+//    
+//    Profilemodel selectedModel;
+//    Scene previousScene;
+//    
+//        public void setPreviousScene(Scene scene) {
+//        previousScene = scene;
+//        backButton.setDisable(false);
+//    }
        
        
     @FXML
@@ -101,13 +165,16 @@ public class ProfileController {
         int id = scn.nextInt();
         
         System.out.println("Enter Name:");
-        String name = scn.next();
+        String name = scn.nextLine();
         
         System.out.println("Enter Age");
         int age = scn.nextInt();
         
         System.out.println("Enter Graduation Year");
         int gradyr = scn.nextInt();
+        
+        System.out.println("Enter Bio: ");
+        String bio = scn.nextLine();
         
         // create a like instance
         Profilemodel profile = new Profilemodel();
@@ -117,6 +184,8 @@ public class ProfileController {
         profile.setName(name);
         profile.setAge(age);
         profile.setGradyear(gradyr);
+        profile.setBio(bio);
+        
         
         // save this student to databse by calling Create operation        
         create(profile);
@@ -144,7 +213,7 @@ public class ProfileController {
         int id = scn.nextInt();
         
         System.out.println("Enter Name:");
-        String name = scn.next();
+        String name = scn.nextLine();
         
         System.out.println("Enter Age");
         int age = scn.nextInt();
@@ -153,7 +222,7 @@ public class ProfileController {
         int gradyr = scn.nextInt();
         
         System.out.println("Enter Bio");
-        String bio = scn.next();
+        String bio = scn.nextLine();
         
         // create a like instance
         Profilemodel profile = new Profilemodel();
@@ -194,9 +263,9 @@ public class ProfileController {
     
      //@Override
      public void initialize(URL url, ResourceBundle rb) {
-         // loading data from database
-        //database reference: "IntroJavaFXPU"
-        manager = (EntityManager) Persistence.createEntityManagerFactory("group9PU").createEntityManager();
+
+        manager = (EntityManager) 
+        Persistence.createEntityManagerFactory("group9PU").createEntityManager();
         
         ID.setCellValueFactory(new PropertyValueFactory<>("Id"));
         Name.setCellValueFactory(new PropertyValueFactory<>("Name"));

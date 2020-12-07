@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfileController">
    <children>
       <TextField fx:id="idField" layoutX="120.0" layoutY="63.0" />
@@ -23,12 +22,11 @@
       <Text layoutX="14.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Graduation Year:" />
       <TextArea fx:id="bioField" layoutX="429.0" layoutY="287.0" prefHeight="128.0" prefWidth="200.0" />
       <Text layoutX="450.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Biography:" />
-      <ImageView fx:id="profilepic" fitHeight="150.0" fitWidth="200.0" layoutX="443.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="profilepic" fitHeight="150.0" fitWidth="200.0" layoutX="466.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../NicoleCooneyFXML/src/resource/images/tim.png" />
+            <Image url="@../../../../../Pictures/profilepic.png" />
          </image>
       </ImageView>
-      <Button fx:id="backButton" layoutX="22.0" layoutY="31.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
       <TableView fx:id="profileTable" layoutX="42.0" layoutY="237.0" prefHeight="200.0" prefWidth="379.0">
         <columns>
           <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
@@ -38,9 +36,13 @@
             <TableColumn fx:id="Bio" prefWidth="75.0" text="Bio" />
         </columns>
       </TableView>
-      <Button layoutX="315.0" layoutY="63.0" mnemonicParsing="false" onAction="#createProfile" text="Create" />
-      <Button layoutX="315.0" layoutY="97.0" mnemonicParsing="false" onAction="#updateProfile" text="Update" />
-      <Button layoutX="315.0" layoutY="132.0" mnemonicParsing="false" onAction="#deleteProfile" text="Delete" />
-      <Button layoutX="314.0" layoutY="166.0" mnemonicParsing="false" onAction="#viewProfiles" text="View Profiles" />
+      <Button layoutX="71.0" layoutY="200.0" mnemonicParsing="false" onAction="#createProfile" text="Create" />
+      <Button layoutX="138.0" layoutY="200.0" mnemonicParsing="false" onAction="#updateProfile" text="Update" />
+      <Button layoutX="206.0" layoutY="200.0" mnemonicParsing="false" onAction="#deleteProfile" text="Delete" />
+      <Button layoutX="269.0" layoutY="200.0" mnemonicParsing="false" onAction="#viewProfiles" text="View Profiles" />
+      <Button layoutX="256.0" layoutY="22.0" mnemonicParsing="false" onAction="#actionshowHome" text="Home" />
+      <Button layoutX="185.0" layoutY="22.0" mnemonicParsing="false" onAction="#actionshowFriends" text="Friends" />
+      <Button layoutX="328.0" layoutY="22.0" mnemonicParsing="false" text="Profile" />
+      <Button layoutX="398.0" layoutY="22.0" mnemonicParsing="false" onAction="#actionshowMessages" text="Messages" />
    </children>
 </AnchorPane>
