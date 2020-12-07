@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
@@ -90,27 +91,105 @@ public class FriendController implements Initializable {
     
     @FXML
     void addFriend(ActionEvent event) {
+        Allusers model = userTable.getSelectionModel().getSelectedItem();
+        int id = model.getId();
+        String name = model.getName();
+        String notes = model.getNotes();
+        model.setStatus(true);
 
+        
+        // create a student instance
+       Friendmodel friend = new Friendmodel();
+        
+        // set properties
+       friend.setId(id);
+       friend.setName(name);
+       friend.setNotes(notes);
+        
+        // save this student to databse by calling Create operation        
+        create(friend); //need to make the create method before this can work
+        List<Friendmodel> friends = readAllFriends();
+        setFriendTableData(friends);
+        List<Allusers> users = readAllUsers();
+        setUserTableData(users);
+        
     }
 
-    @FXML
-    void back(ActionEvent event) {
 
-    }
 
     @FXML
     void deleteFriend(ActionEvent event) {
-
+        
+        Friendmodel model = friendTable.getSelectionModel().getSelectedItem();
+        int id = model.getId();
+        
+        friendTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        ObservableList<Friendmodel> selectedRows = friendTable.getSelectionModel().getSelectedItems();
+        ArrayList<Friendmodel> rows = new ArrayList<>(selectedRows);
+        rows.forEach(row -> friendTable.getItems().remove(row));
+       
+        
+        System.out.println(id);
+    
+        delete(readByFriendId(id));
+        List<Friendmodel> friends = readAllFriends();
+        setFriendTableData(friends);
+        List<Allusers> users = readAllUsers();
+        setUserTableData(users);
+        Allusers user = readByUserId(id);
+        user.setStatus(false);
     }
 
     @FXML
     void searchFriends(ActionEvent event) {
+        // getting the name from input box        
+        String name = fSearchText.getText();
 
+        // calling a db read operaiton, readByName
+        List<Friendmodel> friends = readByNameAdvancedF(name);
+
+        // setting table data
+        //setTableData(students);
+        // add an alert
+        if (friends == null || friends.isEmpty()) {
+
+            // show an alert to inform user 
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog Box");// line 2
+            alert.setHeaderText("This is header section to write heading");// line 3
+            alert.setContentText("No user");// line 4
+            alert.showAndWait(); // line 5
+        } else {
+            // setting table data
+            setFriendTableData(friends);
+        }
     }
 
     @FXML
     void searchUsers(ActionEvent event) {
+        
 
+        // getting the name from input box        
+        String name = uSearchText.getText();
+
+        // calling a db read operaiton, readByName
+        List<Allusers> users = readByNameAdvancedU(name);
+
+        // setting table data
+        //setTableData(students);
+        // add an alert
+        if (users == null || users.isEmpty()) {
+
+            // show an alert to inform user 
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog Box");// line 2
+            alert.setHeaderText("This is header section to write heading");// line 3
+            alert.setContentText("No user");// line 4
+            alert.showAndWait(); // line 5
+        } else {
+            // setting table data
+            setUserTableData(users);
+        }
     }
 
     @FXML
@@ -124,6 +203,64 @@ public class FriendController implements Initializable {
        List<Allusers> Users = readAllUsers();
         setUserTableData(Users);
         
+    }
+    
+    @FXML
+    void actionShowHome(ActionEvent event) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));    
+
+        Parent MessagePage = loader.load();
+
+        Scene messageViewScene = new Scene(MessagePage);
+
+       // MessageController detailedControlled = loader.getController();
+        
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        //detailedControlled.setPreviousScene(currentScene);
+        
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(messageViewScene);
+        stage.show();
+    }
+
+    @FXML
+    void actionShowMessages(ActionEvent event) throws IOException {
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MessagePage.fxml"));
+
+        Parent MessagePage = loader.load();
+
+        Scene messageViewScene = new Scene(MessagePage);
+
+       // MessageController detailedControlled = loader.getController();
+        
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        //detailedControlled.setPreviousScene(currentScene);
+        
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(messageViewScene);
+        stage.show(); 
+    }
+
+    @FXML
+    void actionShowProfile(ActionEvent event) throws IOException {
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfilePage.fxml"));
+
+        Parent MessagePage = loader.load();
+
+        Scene messageViewScene = new Scene(MessagePage);
+
+       // MessageController detailedControlled = loader.getController();
+        
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        //detailedControlled.setPreviousScene(currentScene);
+        
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(messageViewScene);
+        stage.show(); 
     }
 
     
@@ -140,7 +277,7 @@ public class FriendController implements Initializable {
         userTable.refresh();
        
     }  
-        public void setFriendTableData(List<Friendmodel> friendList){
+    public void setFriendTableData(List<Friendmodel> friendList){
         //Inspiration taken from Quiz 4 Demo Code
         friendData = FXCollections.observableArrayList();
         
@@ -160,12 +297,92 @@ public class FriendController implements Initializable {
        
         return users;
     }
-        public List<Friendmodel> readAllFriends(){
+    public List<Friendmodel> readAllFriends(){
         Query query = manager.createNamedQuery("Friendmodel.findAll");
         List<Friendmodel> friends = query.getResultList();
 
        
         return friends;
+    }
+        
+    public List<Allusers> readByNameAdvancedU(String name) {
+        Query query = manager.createNamedQuery("Allusers.findByNameAdvanced");
+
+        // setting query parameter
+        query.setParameter("name", name);
+
+        // execute query
+        List<Allusers> users = query.getResultList();
+        for (Allusers user : users) {
+          
+        }
+
+        return users;
+    }    
+    public List<Friendmodel> readByNameAdvancedF(String name) {
+        Query query = manager.createNamedQuery("Friendmodel.findByNameAdvanced");
+
+        // setting query parameter
+        query.setParameter("name", name);
+
+        // execute query
+        List<Friendmodel> friends = query.getResultList();
+        for (Friendmodel friend : friends) {
+          
+        }
+
+        return friends;
+    } 
+    
+    public Friendmodel readByFriendId(int id){
+        Query query = manager.createNamedQuery("Friendmodel.findById");
+        
+        // setting query parameter
+        query.setParameter("id", id);
+        
+        // execute query
+        Friendmodel friend = (Friendmodel) query.getSingleResult();
+        if (friend != null) {
+        
+        }
+        
+        return friend;
+    } 
+    public Allusers readByUserId(int id){
+        Query query = manager.createNamedQuery("Allusers.findById");
+        
+        // setting query parameter
+        query.setParameter("id", id);
+        
+        // execute query
+        Allusers user = (Allusers) query.getSingleResult();
+        if (user != null) {
+        
+        }
+        
+        return user;
+    }
+    
+    public void delete(Friendmodel post) {
+        try {
+            Friendmodel existingPost = manager.find(Friendmodel.class, post.getId());
+
+            // sanity check
+            if (existingPost != null) {
+                
+                // begin transaction
+                manager.getTransaction().begin();
+                
+                //remove student
+                manager.remove(existingPost);
+                
+                // end transaction
+                manager.getTransaction().commit();
+            }
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     EntityManager manager;
     @Override
@@ -189,4 +406,25 @@ public class FriendController implements Initializable {
 
 
     }
+    public void create(Friendmodel friend) {
+        try {
+            // begin transaction
+            manager.getTransaction().begin();
+            
+            // sanity check
+            if (friend.getId() != null) {
+                
+                // create student
+                manager.persist(friend);
+                
+                // end transaction
+                manager.getTransaction().commit();
+                
+                
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 }
+

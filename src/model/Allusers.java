@@ -27,7 +27,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Allusers.findById", query = "SELECT a FROM Allusers a WHERE a.id = :id")
     , @NamedQuery(name = "Allusers.findByName", query = "SELECT a FROM Allusers a WHERE a.name = :name")
     , @NamedQuery(name = "Allusers.findByStatus", query = "SELECT a FROM Allusers a WHERE a.status = :status")
-    , @NamedQuery(name = "Allusers.findByNotes", query = "SELECT a FROM Allusers a WHERE a.notes = :notes")})
+    , @NamedQuery(name = "Allusers.findByNotes", query = "SELECT a FROM Allusers a WHERE a.notes = :notes")
+
+    , @NamedQuery(name = "Allusers.findByNameAdvanced", query = "SELECT a FROM Allusers a WHERE  LOWER(a.name) LIKE  CONCAT('%', LOWER(:name), '%')")})    
 public class Allusers implements Serializable {
 
     private static final long serialVersionUID = 1L;
