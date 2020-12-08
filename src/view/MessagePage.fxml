@@ -15,9 +15,9 @@
             <Image url="@../../../../af25daf8bce653ec9eaca859569d360d.png" />
          </image>
       </ImageView>
-      <Button layoutX="165.0" layoutY="26.0" mnemonicParsing="false" text="Friends" />
+      <Button layoutX="165.0" layoutY="26.0" mnemonicParsing="false" onAction="#actionShowFriends" text="Friends" />
       <Button layoutX="250.0" layoutY="26.0" mnemonicParsing="false" onAction="#actionShowHome" text="Home" />
-      <Button layoutX="327.0" layoutY="26.0" mnemonicParsing="false" text="Profile" />
+      <Button layoutX="327.0" layoutY="26.0" mnemonicParsing="false" onAction="#actionShowProfile" text="Profile" />
       <Button layoutX="469.0" layoutY="26.0" mnemonicParsing="false" text="Messages" />
       <TableView fx:id="messageTable" layoutX="101.0" layoutY="97.0" prefHeight="391.0" prefWidth="378.0">
         <columns>

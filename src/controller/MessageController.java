@@ -19,6 +19,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -120,7 +122,20 @@ public class MessageController implements Initializable {
     
     @FXML
     void deleteMessage(ActionEvent event) {
+        int selectedIndex = messageTable.getSelectionModel().getSelectedIndex();
+        
+        if (selectedIndex >= 0) {
+            messageTable.getItems().remove(selectedIndex);
+            //delete(selectedIndex);
+        }
+        else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Message Selected");
+            alert.setContentText("Please select a message in the table.");
 
+            alert.showAndWait();
+        }
     }
     
     
@@ -142,7 +157,44 @@ public class MessageController implements Initializable {
         Stage stage = (Stage) currentScene.getWindow();
 
         stage.setScene(homeViewScene);
-        stage.show();      
+        stage.show(); 
+        
+    }
+    
+    @FXML
+    public void actionShowFriends(ActionEvent event) throws IOException{
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FriendsPage.fxml"));
+
+        Parent HomePage = loader.load();
+
+        Scene homeViewScene = new Scene(HomePage);
+        
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(homeViewScene);
+        stage.show();   
+        
+    }
+    
+    @FXML
+    public void actionShowProfile(ActionEvent event) throws IOException{
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfilePage.fxml"));
+
+        Parent HomePage = loader.load();
+
+        Scene homeViewScene = new Scene(HomePage);
+        
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(homeViewScene);
+        stage.show();    
+   
     }
 
 
@@ -198,6 +250,22 @@ public class MessageController implements Initializable {
  
         return yourMessage;
     }  
+    
+    
+//    public void delete (Messagemodel Message){
+//        //inspiration taken from demo code
+//        try{
+//            Messagemodel existingPM = manager.find(Messagemodel.class, Message.getID());
+//        
+//            if (existingPM != null){
+//                manager.getTransaction().begin();          
+//                manager.remove(existingPM);
+//                manager.getTransaction().commit();
+//            }
+//        } catch(Exception ex){
+//            System.out.println(ex.getMessage());
+//        }
+//    }
     
     
     
