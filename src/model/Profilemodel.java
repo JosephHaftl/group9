@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "PROFILEMODEL")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Profilemodel.findAll", query = "SELECT p FROM Profilemodel p")
+      @NamedQuery(name = "Profilemodel.findAll", query = "SELECT p FROM Profilemodel p")
     , @NamedQuery(name = "Profilemodel.findById", query = "SELECT p FROM Profilemodel p WHERE p.id = :id")
     , @NamedQuery(name = "Profilemodel.findByName", query = "SELECT p FROM Profilemodel p WHERE p.name = :name")
     , @NamedQuery(name = "Profilemodel.findByAge", query = "SELECT p FROM Profilemodel p WHERE p.age = :age")

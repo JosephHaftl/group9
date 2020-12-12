@@ -20,20 +20,20 @@
       <Text layoutX="68.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
       <Text layoutX="73.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" />
       <Text layoutX="14.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Graduation Year:" />
-      <TextArea fx:id="bioField" layoutX="429.0" layoutY="287.0" prefHeight="128.0" prefWidth="200.0" />
-      <Text layoutX="450.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Biography:" />
+      <TextArea fx:id="bioField" layoutX="300.0" layoutY="108.0" prefHeight="87.0" prefWidth="132.0" />
+      <Text layoutX="304.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Biography:" />
       <ImageView fx:id="profilepic" fitHeight="150.0" fitWidth="200.0" layoutX="466.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../Pictures/profilepic.png" />
          </image>
       </ImageView>
-      <TableView fx:id="profileTable" layoutX="42.0" layoutY="237.0" prefHeight="200.0" prefWidth="379.0">
+      <TableView fx:id="profileTable" layoutX="42.0" layoutY="237.0" prefHeight="200.0" prefWidth="567.0">
         <columns>
-          <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="Name" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="Age" prefWidth="75.0" text="Age" />
-            <TableColumn fx:id="Gradyr" prefWidth="75.0" text="Grad Yr" />
-            <TableColumn fx:id="Bio" prefWidth="75.0" text="Bio" />
+          <TableColumn fx:id="ID" prefWidth="51.999996185302734" text="ID" />
+          <TableColumn fx:id="Name" prefWidth="129.20001220703125" text="Name" />
+            <TableColumn fx:id="Age" prefWidth="68.80000305175781" text="Age" />
+            <TableColumn fx:id="Gradyr" prefWidth="89.5999755859375" text="Grad Year" />
+            <TableColumn fx:id="Bio" prefWidth="228.0" text="Bio" />
         </columns>
       </TableView>
       <Button layoutX="71.0" layoutY="200.0" mnemonicParsing="false" onAction="#createProfile" text="Create" />
