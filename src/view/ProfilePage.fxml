@@ -53,7 +53,7 @@
       <Button layoutX="280.0" layoutY="343.0" mnemonicParsing="false" onAction="#viewProfiles" text="View Profiles" />
       <Button layoutX="304.0" layoutY="22.0" mnemonicParsing="false" onAction="#actionshowHome" text="Home" />
       <Button layoutX="221.0" layoutY="22.0" mnemonicParsing="false" onAction="#actionshowFriends" text="Friends" />
-      <Button layoutX="386.0" layoutY="22.0" mnemonicParsing="false" text="Profile" />
+      <Button layoutX="386.0" layoutY="22.0" mnemonicParsing="false" opacity="0.43" text="Profile" />
       <Button layoutX="478.0" layoutY="22.0" mnemonicParsing="false" onAction="#actionshowMessages" text="Messages" />
       <Text layoutX="34.0" layoutY="78.0" stroke="#959798" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile">
          <font>

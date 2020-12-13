@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FriendController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="689.0" style="-fx-background-color: LIGHTCYAN;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FriendController">
    <children>
       <Button layoutX="57.0" layoutY="181.0" mnemonicParsing="false" onAction="#viewUsers" text="View All Users" />
       <TableView fx:id="userTable" layoutX="182.0" layoutY="165.0" prefHeight="200.0" prefWidth="420.0">
