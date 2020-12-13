@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -14,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -21,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javax.persistence.EntityManager;
@@ -29,7 +32,7 @@ import javax.persistence.Query;
 import model.Createpostmodel;
 import model.Profilemodel;
 
-public class ProfileController implements Initializable{
+public class ProfileController implements Initializable {
 
     @FXML
     private ResourceBundle resources;
@@ -75,7 +78,6 @@ public class ProfileController implements Initializable{
 
     private ObservableList<Profilemodel> profileData;
 
-    
     public void setTableData(List<Profilemodel> profiles) {
 
         profileData = FXCollections.observableArrayList();
@@ -164,15 +166,15 @@ public class ProfileController implements Initializable{
 
     @FXML
     void createProfile(ActionEvent event) {
+
         Scanner scn = new Scanner(System.in);
 
         System.out.println("Enter ID:");
         //int id = scn.nextInt();
         String text = idField.getText();
         int id = Integer.parseInt(text);
-        
-        //https://stackoverflow.com/questions/15314205/using-gettext-to-get-an-integer/15314227
 
+        //https://stackoverflow.com/questions/15314205/using-gettext-to-get-an-integer/15314227
         System.out.println("Enter Name:");
         //String name = scn.next();
         String name = nameField.getText();
@@ -181,7 +183,6 @@ public class ProfileController implements Initializable{
 //        int age = scn.nextInt();
         String text2 = ageField.getText();
         int age = Integer.parseInt(text2);
-        
 
         System.out.println("Enter Graduation Year");
         //int gradyr = scn.nextInt();
@@ -203,38 +204,38 @@ public class ProfileController implements Initializable{
 
         // save this student to databse by calling Create operation        
         create(profile);
-        
-       // profileTable.refresh();
 
-        
+        profileTable.refresh();
+
+        // profileTable.refresh();
 //        List<Profilemodel> profiles = readAll();
 //        setTableData(profiles);
     }
 
     @FXML
     void deleteProfile(ActionEvent event) {
-        Scanner input = new Scanner(System.in);
 
-        // read input from command line
-        System.out.println("Enter ID of the profile you'd like to delete:");
-        String text = idField.getText();
-        int id = Integer.parseInt(text);
-        
+        Profilemodel model = profileTable.getSelectionModel().getSelectedItem();
+        int id = model.getId();
 
-        Profilemodel profile = readById(id);
-        System.out.println("we are deleting this profile: " + profile.toString());
-        delete(profile);
+        profileTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        ObservableList<Profilemodel> selectedRows = profileTable.getSelectionModel().getSelectedItems();
+        ArrayList<Profilemodel> rows = new ArrayList<>(selectedRows);
+        rows.forEach(row -> profileTable.getItems().remove(row));
+        delete(readById(id));
+       
     }
 
     @FXML
     void updateProfile(ActionEvent event) {
+
         Scanner scn = new Scanner(System.in);
-        
+
         System.out.println("Enter ID:");
         //int id = scn.nextInt();
         String text = idField.getText();
         int id = Integer.parseInt(text);
-        
+
         System.out.println("Enter Name:");
         //String name = scn.next();
         String name = nameField.getText();
@@ -243,7 +244,6 @@ public class ProfileController implements Initializable{
 //        int age = scn.nextInt();
         String text2 = ageField.getText();
         int age = Integer.parseInt(text2);
-        
 
         System.out.println("Enter Graduation Year");
         //int gradyr = scn.nextInt();
@@ -265,6 +265,7 @@ public class ProfileController implements Initializable{
 
         // save this student to databse by calling Create operation        
         update(profile);
+        profileTable.refresh();
 
     }
 
@@ -313,6 +314,7 @@ public class ProfileController implements Initializable{
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+        profileTable.refresh();
     }
 
     public void update(Profilemodel model) {
@@ -321,7 +323,7 @@ public class ProfileController implements Initializable{
             Profilemodel existingProfile = manager.find(Profilemodel.class, model.getId());
 
             if (existingProfile != null) {
-                
+
                 manager.getTransaction().begin();
 
                 existingProfile.setName(model.getName());
@@ -330,6 +332,7 @@ public class ProfileController implements Initializable{
                 existingProfile.setBio(model.getBio());
 
                 manager.getTransaction().commit();
+                profileTable.refresh();
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -381,6 +384,17 @@ public class ProfileController implements Initializable{
 
         return profile;
     }
+//      public void initData(Profilemodel model) {
+//           try {
+//            // path points to /resource/images/
+//            String imagename = "/resource/images/syd.png";
+//            Image profile = new Image(getClass().getResourceAsStream(imagename));
+//            profilepic.setImage(profile);
+//
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
 
 //    @FXML
 //    void initialize() {

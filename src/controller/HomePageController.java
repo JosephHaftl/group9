@@ -43,6 +43,7 @@ import javax.swing.JOptionPane;
 import model.Createpostmodel;
 import model.Friendmodel;
 import model.Messagemodel;
+import model.Profilemodel;
 
 public class HomePageController implements Initializable {
     @FXML
@@ -218,16 +219,20 @@ public class HomePageController implements Initializable {
     
     @FXML
     void actionshowProfile(ActionEvent event) throws IOException {
+        
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfilePage.fxml"));
 
         Parent MessagePage = loader.load();
 
         Scene messageViewScene = new Scene(MessagePage);
 
-       // MessageController detailedControlled = loader.getController();
+       // ProfileController detailedControlled = loader.getController();
         
+       
         Scene currentScene = ((Node) event.getSource()).getScene();
         //detailedControlled.setPreviousScene(currentScene);
+       
         
         Stage stage = (Stage) currentScene.getWindow();
 
