@@ -10,9 +10,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="573.0" style="-fx-background-color: LIGHTCYAN;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MessageController">
    <children>
-      <ImageView fitHeight="72.0" fitWidth="86.0" layoutX="2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="initData" fitHeight="72.0" fitWidth="86.0" layoutX="2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../af25daf8bce653ec9eaca859569d360d.png" />
+            <Image url="@../resource/images/Logo.png" />
          </image>
       </ImageView>
       <Button layoutX="165.0" layoutY="26.0" mnemonicParsing="false" onAction="#actionShowFriends" text="Friends" />

@@ -35,6 +35,8 @@ import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -71,6 +73,9 @@ public class HomePageController implements Initializable {
     private TableColumn<Createpostmodel, String> Post;
     
     private ObservableList<Createpostmodel> postData;
+    
+    @FXML 
+    private ImageView image;
     
     
     public void setTableData(List<Createpostmodel> postList){
@@ -194,6 +199,19 @@ public class HomePageController implements Initializable {
         
         List<Createpostmodel> Posts = readAll();
         setTableData(Posts);
+    }
+    
+    public void initData(Messagemodel model) {
+
+        try {
+
+            String imagename = "/resource/images/" + model.getName() + ".png";
+            Image profile = new Image(getClass().getResourceAsStream(imagename));
+            image.setImage(profile);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
     

@@ -26,6 +26,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -64,6 +66,9 @@ public class MessageController implements Initializable {
     private TableColumn<Messagemodel, String> Pm;
     
     private ObservableList<Messagemodel> messageData;
+    
+    @FXML 
+    private ImageView image; 
     
     
     public void setTableData(List<Messagemodel> messageList){
@@ -132,9 +137,23 @@ public class MessageController implements Initializable {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("No Selection");
             alert.setHeaderText("No Message Selected");
-            alert.setContentText("Please select a message in the table.");
+            alert.setContentText("Please select a message in the table to delete.");
 
             alert.showAndWait();
+        }
+    }
+    
+    
+    public void initData(Messagemodel model) {
+
+        try {
+
+            String imagename = "/resource/images/" + model.getName() + ".png";
+            Image profile = new Image(getClass().getResourceAsStream(imagename));
+            image.setImage(profile);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
     
