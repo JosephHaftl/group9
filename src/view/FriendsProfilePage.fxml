@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: LIGHTCYAN;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FriendProfileController">
    <children>
       <ImageView fx:id="profilePic" fitHeight="150.0" fitWidth="200.0" layoutX="206.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" />
       <Text layoutX="233.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
       <Label fx:id="name" layoutX="313.0" layoutY="222.0" text="Name" />
+      <Text layoutX="233.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notes: " />
+      <Label fx:id="notes" layoutX="313.0" layoutY="253.0" text="Notes" />
+      <ImageView fitHeight="85.0" fitWidth="86.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resource/images/Logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

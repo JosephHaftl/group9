@@ -78,9 +78,9 @@ public class ProfileController implements Initializable {
     private TableColumn<Profilemodel, String> Bio;
 
     private ObservableList<Profilemodel> profileData;
-    
-    @FXML 
-    private ImageView image; 
+
+    @FXML
+    private ImageView image;
 
     public void setTableData(List<Profilemodel> profiles) {
 
@@ -93,7 +93,7 @@ public class ProfileController implements Initializable {
         profileTable.setItems(profileData);
         profileTable.refresh();
     }
-    
+
     public void initData(Messagemodel model) {
 
         try {
@@ -240,7 +240,7 @@ public class ProfileController implements Initializable {
         ArrayList<Profilemodel> rows = new ArrayList<>(selectedRows);
         rows.forEach(row -> profileTable.getItems().remove(row));
         delete(readById(id));
-       
+
     }
 
     @FXML

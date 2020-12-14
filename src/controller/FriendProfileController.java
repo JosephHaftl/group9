@@ -35,16 +35,15 @@ public class FriendProfileController {
 
     @FXML // fx:id="name"
     private Label name; // Value injected by FXMLLoader
-    
+
 //    @FXML
 //    private Button backButton;
-
     @FXML
     private Label notes;
 
     Friendmodel selectedModel;
     Scene previousScene;
-    
+
 //    
 //    @FXML
 //    void backButton(ActionEvent event) {
@@ -63,7 +62,6 @@ public class FriendProfileController {
 //        backButton.setDisable(false);
 //
 //    }
-
     public void initData(Friendmodel model) {
         selectedModel = model;
         name.setText(model.getName());

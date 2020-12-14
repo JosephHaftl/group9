@@ -1,4 +1,3 @@
-
 package controller;
 
 import java.io.IOException;
@@ -39,14 +38,10 @@ import model.Messagemodel;
 import model.Allusers;
 //testing pushing to branch
 
-
-
 /**
  *
  * @author Joseph Haftl
  */
-
-
 public class FriendController implements Initializable {
 
     @FXML
@@ -54,7 +49,7 @@ public class FriendController implements Initializable {
 
     @FXML
     private URL location;
-    
+
     @FXML
     private TableView<Allusers> userTable;
 
@@ -90,11 +85,10 @@ public class FriendController implements Initializable {
 
     private ObservableList<Allusers> userData;
     private ObservableList<Friendmodel> friendData;
-    
-    @FXML 
+
+    @FXML
     private ImageView image;
-    
-    
+
     @FXML
     void addFriend(ActionEvent event) {
         Allusers model = userTable.getSelectionModel().getSelectedItem();
@@ -103,40 +97,36 @@ public class FriendController implements Initializable {
         String notes = model.getNotes();
         model.setStatus(true);
 
-        
         // create a student instance
-       Friendmodel friend = new Friendmodel();
-        
+        Friendmodel friend = new Friendmodel();
+
         // set properties
-       friend.setId(id);
-       friend.setName(name);
-       friend.setNotes(notes);
-        
+        friend.setId(id);
+        friend.setName(name);
+        friend.setNotes(notes);
+
         // save this student to databse by calling Create operation        
         create(friend); //need to make the create method before this can work
         List<Friendmodel> friends = readAllFriends();
         setFriendTableData(friends);
         List<Allusers> users = readAllUsers();
         setUserTableData(users);
-        
+
     }
-
-
 
     @FXML
     void deleteFriend(ActionEvent event) {
-        
+
         Friendmodel model = friendTable.getSelectionModel().getSelectedItem();
         int id = model.getId();
-        
+
         friendTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         ObservableList<Friendmodel> selectedRows = friendTable.getSelectionModel().getSelectedItems();
         ArrayList<Friendmodel> rows = new ArrayList<>(selectedRows);
         rows.forEach(row -> friendTable.getItems().remove(row));
-       
-        
+
         System.out.println(id);
-    
+
         delete(readByFriendId(id));
         List<Friendmodel> friends = readAllFriends();
         setFriendTableData(friends);
@@ -173,7 +163,6 @@ public class FriendController implements Initializable {
 
     @FXML
     void searchUsers(ActionEvent event) {
-        
 
         // getting the name from input box        
         String name = uSearchText.getText();
@@ -200,17 +189,17 @@ public class FriendController implements Initializable {
 
     @FXML
     void viewFriends(ActionEvent event) {
-       List<Friendmodel> Friends = readAllFriends();
+        List<Friendmodel> Friends = readAllFriends();
         setFriendTableData(Friends);
     }
 
     @FXML
     void viewUsers(ActionEvent event) {
-       List<Allusers> Users = readAllUsers();
+        List<Allusers> Users = readAllUsers();
         setUserTableData(Users);
-        
+
     }
-    
+
 //    public void initData(Messagemodel model) {
 //
 //        try {
@@ -223,20 +212,18 @@ public class FriendController implements Initializable {
 //            System.out.println(ex.getMessage());
 //        }
 //    }
-    
     @FXML
     void actionShowHome(ActionEvent event) throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));    
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
 
         Parent MessagePage = loader.load();
 
         Scene messageViewScene = new Scene(MessagePage);
 
-       // MessageController detailedControlled = loader.getController();
-        
+        // MessageController detailedControlled = loader.getController();
         Scene currentScene = ((Node) event.getSource()).getScene();
         //detailedControlled.setPreviousScene(currentScene);
-        
+
         Stage stage = (Stage) currentScene.getWindow();
 
         stage.setScene(messageViewScene);
@@ -245,47 +232,45 @@ public class FriendController implements Initializable {
 
     @FXML
     void actionShowMessages(ActionEvent event) throws IOException {
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MessagePage.fxml"));
 
         Parent MessagePage = loader.load();
 
         Scene messageViewScene = new Scene(MessagePage);
 
-       // MessageController detailedControlled = loader.getController();
-        
+        // MessageController detailedControlled = loader.getController();
         Scene currentScene = ((Node) event.getSource()).getScene();
         //detailedControlled.setPreviousScene(currentScene);
-        
+
         Stage stage = (Stage) currentScene.getWindow();
 
         stage.setScene(messageViewScene);
-        stage.show(); 
+        stage.show();
     }
 
     @FXML
     void actionShowProfile(ActionEvent event) throws IOException {
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfilePage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfilePage.fxml"));
 
         Parent MessagePage = loader.load();
 
         Scene messageViewScene = new Scene(MessagePage);
 
-       // MessageController detailedControlled = loader.getController();
-        
+        // MessageController detailedControlled = loader.getController();
         Scene currentScene = ((Node) event.getSource()).getScene();
         //detailedControlled.setPreviousScene(currentScene);
-        
+
         Stage stage = (Stage) currentScene.getWindow();
 
         stage.setScene(messageViewScene);
-        stage.show(); 
+        stage.show();
     }
-    
-        @FXML
-    void showFriendProfile(ActionEvent event) throws IOException{
+
+    @FXML
+    void showFriendProfile(ActionEvent event) throws IOException {
         Friendmodel selectedFriend = friendTable.getSelectionModel().getSelectedItem();
-        
+
         // fxml loader
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FriendsProfilePage.fxml"));
 
@@ -298,7 +283,6 @@ public class FriendController implements Initializable {
         //access the detailedControlled and call a method
         FriendProfileController detailedControlled = loader.getController();
 
-
         detailedControlled.initData(selectedFriend);
 
         // create a new state
@@ -307,48 +291,46 @@ public class FriendController implements Initializable {
         stage.show();
     }
 
-    
-    
-    public void setUserTableData(List<Allusers> userList){
+    public void setUserTableData(List<Allusers> userList) {
         //Inspiration taken from Quiz 4 Demo Code
         userData = FXCollections.observableArrayList();
-        
+
         userList.forEach(a -> {
             userData.add(a);
         });
-        
+
         userTable.setItems(userData);
         userTable.refresh();
-       
-    }  
-    public void setFriendTableData(List<Friendmodel> friendList){
+
+    }
+
+    public void setFriendTableData(List<Friendmodel> friendList) {
         //Inspiration taken from Quiz 4 Demo Code
         friendData = FXCollections.observableArrayList();
-        
+
         friendList.forEach(f -> {
             friendData.add(f);
         });
-        
+
         friendTable.setItems(friendData);
         friendTable.refresh();
-       
+
     }
-    
-    public List<Allusers> readAllUsers(){
+
+    public List<Allusers> readAllUsers() {
         Query query = manager.createNamedQuery("Allusers.findAll");
         List<Allusers> users = query.getResultList();
 
-       
         return users;
     }
-    public List<Friendmodel> readAllFriends(){
+
+    public List<Friendmodel> readAllFriends() {
         Query query = manager.createNamedQuery("Friendmodel.findAll");
         List<Friendmodel> friends = query.getResultList();
 
-       
         return friends;
     }
-        
+
     public List<Allusers> readByNameAdvancedU(String name) {
         Query query = manager.createNamedQuery("Allusers.findByNameAdvanced");
 
@@ -358,11 +340,12 @@ public class FriendController implements Initializable {
         // execute query
         List<Allusers> users = query.getResultList();
         for (Allusers user : users) {
-          
+
         }
 
         return users;
-    }    
+    }
+
     public List<Friendmodel> readByNameAdvancedF(String name) {
         Query query = manager.createNamedQuery("Friendmodel.findByNameAdvanced");
 
@@ -372,103 +355,100 @@ public class FriendController implements Initializable {
         // execute query
         List<Friendmodel> friends = query.getResultList();
         for (Friendmodel friend : friends) {
-          
+
         }
 
         return friends;
-    } 
-    
-    public Friendmodel readByFriendId(int id){
+    }
+
+    public Friendmodel readByFriendId(int id) {
         Query query = manager.createNamedQuery("Friendmodel.findById");
-        
+
         // setting query parameter
         query.setParameter("id", id);
-        
+
         // execute query
         Friendmodel friend = (Friendmodel) query.getSingleResult();
         if (friend != null) {
-        
+
         }
-        
+
         return friend;
-    } 
-    public Allusers readByUserId(int id){
+    }
+
+    public Allusers readByUserId(int id) {
         Query query = manager.createNamedQuery("Allusers.findById");
-        
+
         // setting query parameter
         query.setParameter("id", id);
-        
+
         // execute query
         Allusers user = (Allusers) query.getSingleResult();
         if (user != null) {
-        
+
         }
-        
+
         return user;
     }
-    
+
     public void delete(Friendmodel post) {
         try {
             Friendmodel existingPost = manager.find(Friendmodel.class, post.getId());
 
             // sanity check
             if (existingPost != null) {
-                
+
                 // begin transaction
                 manager.getTransaction().begin();
-                
+
                 //remove student
                 manager.remove(existingPost);
-                
+
                 // end transaction
                 manager.getTransaction().commit();
             }
-            
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
     EntityManager manager;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        manager = (EntityManager) 
-                
-        Persistence.createEntityManagerFactory("group9PU").createEntityManager();
-        
-       //Inspiration taken from Quiz 4 Demo Code
+        manager = (EntityManager) Persistence.createEntityManagerFactory("group9PU").createEntityManager();
+
+        //Inspiration taken from Quiz 4 Demo Code
         uID.setCellValueFactory(new PropertyValueFactory<>("Id"));
         uName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         uStatus.setCellValueFactory(new PropertyValueFactory<>("Status"));
         uNotes.setCellValueFactory(new PropertyValueFactory<>("Notes"));
-           
-        
+
         fID.setCellValueFactory(new PropertyValueFactory<>("Id"));
         fName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         fNotes.setCellValueFactory(new PropertyValueFactory<>("Notes"));
-        
+
         userTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-
     }
+
     public void create(Friendmodel friend) {
         try {
             // begin transaction
             manager.getTransaction().begin();
-            
+
             // sanity check
             if (friend.getId() != null) {
-                
+
                 // create student
                 manager.persist(friend);
-                
+
                 // end transaction
                 manager.getTransaction().commit();
-                
-                
+
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
 }
-

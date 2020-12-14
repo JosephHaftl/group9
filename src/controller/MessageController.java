@@ -40,19 +40,19 @@ import model.Messagemodel;
  * @author ianchong16
  */
 public class MessageController implements Initializable {
-    
-    @FXML 
+
+    @FXML
     private ResourceBundle resources;
 
-    @FXML 
+    @FXML
     private URL location;
-    
+
     @FXML
     private TextField textboxPost;
-    
+
     @FXML
     private TableView<Messagemodel> messageTable;
-    
+
     @FXML
     private TableColumn<Messagemodel, Integer> ID;
 
@@ -64,76 +64,71 @@ public class MessageController implements Initializable {
 
     @FXML
     private TableColumn<Messagemodel, String> Pm;
-    
+
     private ObservableList<Messagemodel> messageData;
-    
-    @FXML 
-    private ImageView image; 
-    
-    
-    public void setTableData(List<Messagemodel> messageList){
+
+    @FXML
+    private ImageView image;
+
+    public void setTableData(List<Messagemodel> messageList) {
         messageData = FXCollections.observableArrayList();
-        
+
         messageList.forEach(s -> {
             messageData.add(s);
         });
-        
+
         messageTable.setItems(messageData);
         messageTable.refresh();
-    }    
-    
-    
+    }
+
     @FXML
     void createMessage(ActionEvent event) {
         Scanner input = new Scanner(System.in);
-        
+
         // read input from command line
         System.out.println("Enter ID: ");
         int id = input.nextInt();
-        
+
         ////https://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo
         input.nextLine();
 
         System.out.println("Enter Name: ");
         String name = input.nextLine();
-        
+
         System.out.println("Enter the name of your Private Message: ");
         String pmname = input.nextLine();
-        
+
         String message = textboxPost.getText();
-        
+
         // create a pm instance
         Messagemodel yourMessage = new Messagemodel();
-        
+
         // set properties
         yourMessage.setID(id);
         yourMessage.setName(name);
         yourMessage.setPmName(pmname);
         yourMessage.setPm(message);
-        
+
         //save this student to the database by calling Create operation
         create(yourMessage);
         List<Messagemodel> messages = readAll();
         setTableData(messages);
     }
-    
-    
+
     @FXML
-    void viewMessage (ActionEvent event) {
+    void viewMessage(ActionEvent event) {
         List<Messagemodel> messages = readAll();
         setTableData(messages);
     }
 
-    
     @FXML
     void deleteMessage(ActionEvent event) {
         int selectedIndex = messageTable.getSelectionModel().getSelectedIndex();
-        
+
         if (selectedIndex >= 0) {
             messageTable.getItems().remove(selectedIndex);
             //delete(selectedIndex);
-        }
-        else {
+        } else {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("No Selection");
             alert.setHeaderText("No Message Selected");
@@ -142,8 +137,7 @@ public class MessageController implements Initializable {
             alert.showAndWait();
         }
     }
-    
-    
+
     public void initData(Messagemodel model) {
 
         try {
@@ -156,121 +150,109 @@ public class MessageController implements Initializable {
             System.out.println(ex.getMessage());
         }
     }
-    
-    
-    
+
     @FXML
     public void actionShowHome(ActionEvent event) throws IOException {
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomePage.fxml"));
 
         Parent HomePage = loader.load();
 
         Scene homeViewScene = new Scene(HomePage);
 
-       // MessageController detailedControlled = loader.getController();
-        
+        // MessageController detailedControlled = loader.getController();
         Scene currentScene = ((Node) event.getSource()).getScene();
         //detailedControlled.setPreviousScene(currentScene);
-        
+
         Stage stage = (Stage) currentScene.getWindow();
 
         stage.setScene(homeViewScene);
-        stage.show(); 
-        
+        stage.show();
+
     }
-    
+
     @FXML
-    public void actionShowFriends(ActionEvent event) throws IOException{
-        
+    public void actionShowFriends(ActionEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FriendsPage.fxml"));
 
         Parent HomePage = loader.load();
 
         Scene homeViewScene = new Scene(HomePage);
-        
+
         Scene currentScene = ((Node) event.getSource()).getScene();
-        
+
         Stage stage = (Stage) currentScene.getWindow();
 
         stage.setScene(homeViewScene);
-        stage.show();   
-        
+        stage.show();
+
     }
-    
+
     @FXML
-    public void actionShowProfile(ActionEvent event) throws IOException{
-        
+    public void actionShowProfile(ActionEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProfilePage.fxml"));
 
         Parent HomePage = loader.load();
 
         Scene homeViewScene = new Scene(HomePage);
-        
+
         Scene currentScene = ((Node) event.getSource()).getScene();
-        
+
         Stage stage = (Stage) currentScene.getWindow();
 
         stage.setScene(homeViewScene);
-        stage.show();    
-   
-    }
+        stage.show();
 
+    }
 
     //NOTES
     //Need createPM, deletePM, readPM, updatePM, 
-    
     //update, delete, readbyId, readAll (operations)
-    
-
-    
     //Database Manager
     EntityManager manager;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Code from Demo
-        manager = (EntityManager)          
-        Persistence.createEntityManagerFactory("group9PU").createEntityManager();
-        
+        manager = (EntityManager) Persistence.createEntityManagerFactory("group9PU").createEntityManager();
+
         ID.setCellValueFactory(new PropertyValueFactory<>("ID"));
         Name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         PmName.setCellValueFactory(new PropertyValueFactory<>("PmName"));
         Pm.setCellValueFactory(new PropertyValueFactory<>("Pm"));
-        
+
         //messageTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
-    
-    
+
     /* 
     Implementing CRUD operations    
-    */   
-    
-    public void create (Messagemodel yourMessage){
+     */
+    public void create(Messagemodel yourMessage) {
         //inspiration taken from demo code
-        try{
+        try {
             manager.getTransaction().begin();
-        
-            if (yourMessage.getID() != null){
+
+            if (yourMessage.getID() != null) {
                 manager.persist(yourMessage);
                 manager.getTransaction().commit();
-                System.out.println(yourMessage.toString() + "has been created");            
-            }       
-        } catch (Exception ex){
+                System.out.println(yourMessage.toString() + "has been created");
+            }
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
 
     }
-    
-    public List<Messagemodel> readAll(){
+
+    public List<Messagemodel> readAll() {
         //inspiration taken from demo code
         Query query = manager.createNamedQuery("Messagemodel.findAll");
         List<Messagemodel> yourMessage = query.getResultList();
- 
+
         return yourMessage;
-    }  
-    
-    
+    }
+
 //    public void delete (Messagemodel Message){
 //        //inspiration taken from demo code
 //        try{
@@ -285,7 +267,4 @@ public class MessageController implements Initializable {
 //            System.out.println(ex.getMessage());
 //        }
 //    }
-    
-    
-    
 }
