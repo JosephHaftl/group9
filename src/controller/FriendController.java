@@ -211,18 +211,18 @@ public class FriendController implements Initializable {
         
     }
     
-    public void initData(Messagemodel model) {
-
-        try {
-
-            String imagename = "/resource/images/" + model.getName() + ".png";
-            Image profile = new Image(getClass().getResourceAsStream(imagename));
-            image.setImage(profile);
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+//    public void initData(Messagemodel model) {
+//
+//        try {
+//
+//            String imagename = "/resource/images/" + model.getName() + ".png";
+//            Image profile = new Image(getClass().getResourceAsStream(imagename));
+//            image.setImage(profile);
+//
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
     
     @FXML
     void actionShowHome(ActionEvent event) throws IOException {
@@ -280,6 +280,31 @@ public class FriendController implements Initializable {
 
         stage.setScene(messageViewScene);
         stage.show(); 
+    }
+    
+        @FXML
+    void showFriendProfile(ActionEvent event) throws IOException{
+        Friendmodel selectedFriend = friendTable.getSelectionModel().getSelectedItem();
+        
+        // fxml loader
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FriendsProfilePage.fxml"));
+
+        // load the ui elements
+        Parent DetailedModelView = loader.load();
+
+        // load the scene
+        Scene tableViewScene = new Scene(DetailedModelView);
+
+        //access the detailedControlled and call a method
+        FriendProfileController detailedControlled = loader.getController();
+
+
+        detailedControlled.initData(selectedFriend);
+
+        // create a new state
+        Stage stage = new Stage();
+        stage.setScene(tableViewScene);
+        stage.show();
     }
 
     

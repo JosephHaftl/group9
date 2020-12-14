@@ -54,5 +54,6 @@
             <Image url="@../resource/images/Logo.png" />
          </image>
       </ImageView>
+      <Button fx:id="showFriendProfile" layoutX="66.0" layoutY="619.0" mnemonicParsing="false" onAction="#showFriendProfile" text="View Profile" />
    </children>
 </AnchorPane>
