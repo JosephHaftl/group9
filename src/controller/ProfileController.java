@@ -30,6 +30,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.Createpostmodel;
+import model.Messagemodel;
 import model.Profilemodel;
 
 public class ProfileController implements Initializable {
@@ -77,6 +78,9 @@ public class ProfileController implements Initializable {
     private TableColumn<Profilemodel, String> Bio;
 
     private ObservableList<Profilemodel> profileData;
+    
+    @FXML 
+    private ImageView image; 
 
     public void setTableData(List<Profilemodel> profiles) {
 
@@ -88,6 +92,19 @@ public class ProfileController implements Initializable {
 
         profileTable.setItems(profileData);
         profileTable.refresh();
+    }
+    
+    public void initData(Messagemodel model) {
+
+        try {
+
+            String imagename = "/resource/images/" + model.getName() + ".png";
+            Image profile = new Image(getClass().getResourceAsStream(imagename));
+            image.setImage(profile);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @FXML

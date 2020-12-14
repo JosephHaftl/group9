@@ -26,6 +26,8 @@ import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -88,6 +90,10 @@ public class FriendController implements Initializable {
 
     private ObservableList<Allusers> userData;
     private ObservableList<Friendmodel> friendData;
+    
+    @FXML 
+    private ImageView image;
+    
     
     @FXML
     void addFriend(ActionEvent event) {
@@ -203,6 +209,19 @@ public class FriendController implements Initializable {
        List<Allusers> Users = readAllUsers();
         setUserTableData(Users);
         
+    }
+    
+    public void initData(Messagemodel model) {
+
+        try {
+
+            String imagename = "/resource/images/" + model.getName() + ".png";
+            Image profile = new Image(getClass().getResourceAsStream(imagename));
+            image.setImage(profile);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
     @FXML
