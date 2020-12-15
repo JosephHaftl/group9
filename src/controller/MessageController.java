@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -32,7 +33,9 @@ import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import model.Allusers;
 import model.Createpostmodel;
+import model.Friendmodel;
 import model.Messagemodel;
 
 /**
@@ -123,19 +126,33 @@ public class MessageController implements Initializable {
 
     @FXML
     void deleteMessage(ActionEvent event) {
-        int selectedIndex = messageTable.getSelectionModel().getSelectedIndex();
+//        int selectedIndex = messageTable.getSelectionModel().getSelectedIndex();
+//
+//        if (selectedIndex >= 0) {
+//            messageTable.getItems().remove(selectedIndex);
+//            //delete(selectedIndex);
+//        } else {
+//            Alert alert = new Alert(AlertType.WARNING);
+//            alert.setTitle("No Selection");
+//            alert.setHeaderText("No Message Selected");
+//            alert.setContentText("Please select a message in the table to delete.");
+//
+//            alert.showAndWait();
+//        }
+        Messagemodel model = messageTable.getSelectionModel().getSelectedItem();
+        int id = model.getID();
 
-        if (selectedIndex >= 0) {
-            messageTable.getItems().remove(selectedIndex);
-            //delete(selectedIndex);
-        } else {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Message Selected");
-            alert.setContentText("Please select a message in the table to delete.");
+        messageTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        ObservableList<Messagemodel> selectedRows = messageTable.getSelectionModel().getSelectedItems();
+        ArrayList<Messagemodel> rows = new ArrayList<>(selectedRows);
+        rows.forEach(row -> messageTable.getItems().remove(row));
 
-            alert.showAndWait();
-        }
+        System.out.println(id);
+
+        delete(readByMessageId(id));
+        List<Messagemodel> messages = readAll();
+        setTableData(messages);
+
     }
 
     public void initData(Messagemodel model) {
@@ -252,19 +269,42 @@ public class MessageController implements Initializable {
 
         return yourMessage;
     }
+    
+    public Messagemodel readByMessageId(int id){
+        Query query = manager.createNamedQuery("Messagemodel.findById");
 
-//    public void delete (Messagemodel Message){
-//        //inspiration taken from demo code
-//        try{
-//            Messagemodel existingPM = manager.find(Messagemodel.class, Message.getID());
-//        
-//            if (existingPM != null){
-//                manager.getTransaction().begin();          
-//                manager.remove(existingPM);
-//                manager.getTransaction().commit();
-//            }
-//        } catch(Exception ex){
-//            System.out.println(ex.getMessage());
-//        }
-//    }
+        // setting query parameter
+        query.setParameter("id", id);
+
+        // execute query
+        Messagemodel msg = (Messagemodel) query.getSingleResult();
+        if (msg != null) {
+
+        }
+
+        return msg;
+        
+    }
+
+    public void delete(Messagemodel post) {
+            try {
+                Messagemodel existingPost = manager.find(Messagemodel.class, post.getID());
+
+            // sanity check
+                if (existingPost != null) {
+
+                // begin transaction
+                    manager.getTransaction().begin();
+
+                //remove student
+                    manager.remove(existingPost);
+
+                // end transaction
+                    manager.getTransaction().commit();
+                }
+
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+    }
 }
