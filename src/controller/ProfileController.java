@@ -224,9 +224,9 @@ public class ProfileController implements Initializable {
 
         profileTable.refresh();
 
-        // profileTable.refresh();
-//        List<Profilemodel> profiles = readAll();
-//        setTableData(profiles);
+        
+        List<Profilemodel> profiles = readAll();
+        setTableData(profiles);
     }
 
     @FXML
