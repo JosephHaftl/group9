@@ -126,7 +126,7 @@ public class FriendController implements Initializable {
         rows.forEach(row -> friendTable.getItems().remove(row));
 
         System.out.println(id);
-
+        //test sout statement used to see if the id is the right value
         delete(readByFriendId(id));
         List<Friendmodel> friends = readAllFriends();
         setFriendTableData(friends);
