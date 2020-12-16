@@ -120,11 +120,11 @@ public class MessageController implements Initializable {
 
         List<Messagemodel> messages1 = readAll();
         int id = messages1.size();
-        
+        System.out.println(id);
         // set properties
-        yourMessage.setId(id + 1);
+        yourMessage.setId(id+1);
         // set properties
-        yourMessage.setId(id);
+       // yourMessage.setId(id);
         yourMessage.setName(name);
         yourMessage.setPname(pmname);
         yourMessage.setMessage(message);
