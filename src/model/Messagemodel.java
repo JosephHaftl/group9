@@ -10,7 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ianchong16
+ * @author nicole
  */
 @Entity
 @Table(name = "MESSAGEMODEL")
@@ -27,7 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Messagemodel.findAll", query = "SELECT m FROM Messagemodel m")
     , @NamedQuery(name = "Messagemodel.findById", query = "SELECT m FROM Messagemodel m WHERE m.id = :id")
     , @NamedQuery(name = "Messagemodel.findByName", query = "SELECT m FROM Messagemodel m WHERE m.name = :name")
-    , @NamedQuery(name = "Messagemodel.findByPmname", query = "SELECT m FROM Messagemodel m WHERE m.pmname = :pmname")})
+    , @NamedQuery(name = "Messagemodel.findByPname", query = "SELECT m FROM Messagemodel m WHERE m.pname = :pname")
+    , @NamedQuery(name = "Messagemodel.findByMessage", query = "SELECT m FROM Messagemodel m WHERE m.message = :message")})
 public class Messagemodel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,11 +37,10 @@ public class Messagemodel implements Serializable {
     private Integer id;
     @Column(name = "NAME")
     private String name;
-    @Column(name = "PMNAME")
-    private String pmname;
-    @Lob
-    @Column(name = "PM")
-    private String pm;
+    @Column(name = "PNAME")
+    private String pname;
+    @Column(name = "MESSAGE")
+    private String message;
 
     public Messagemodel() {
     }
@@ -50,11 +49,11 @@ public class Messagemodel implements Serializable {
         this.id = id;
     }
 
-    public Integer getID() {
+    public Integer getId() {
         return id;
     }
 
-    public void setID(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -66,20 +65,20 @@ public class Messagemodel implements Serializable {
         this.name = name;
     }
 
-    public String getPmName() {
-        return pmname;
+    public String getPname() {
+        return pname;
     }
 
-    public void setPmName(String pmname) {
-        this.pmname = pmname;
+    public void setPname(String pname) {
+        this.pname = pname;
     }
 
-    public String getPm() {
-        return pm;
+    public String getMessage() {
+        return message;
     }
 
-    public void setPm(String pm) {
-        this.pm = pm;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override

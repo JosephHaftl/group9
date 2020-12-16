@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.UUID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -186,10 +188,10 @@ public class ProfileController implements Initializable {
 
         Scanner scn = new Scanner(System.in);
 
-        System.out.println("Enter ID:");
+        //System.out.println("Enter ID:");
         //int id = scn.nextInt();
-        String text = idField.getText();
-        int id = Integer.parseInt(text);
+        //String text = idField.getText();
+        //int id = Integer.parseInt(text);
 
         //https://stackoverflow.com/questions/15314205/using-gettext-to-get-an-integer/15314227
         System.out.println("Enter Name:");
@@ -212,8 +214,11 @@ public class ProfileController implements Initializable {
         // create a like instance
         Profilemodel profile = new Profilemodel();
 
+        List<Profilemodel> profiles = readAll();
+        int id = profiles.size();
+        
         // set properties
-        profile.setId(id);
+        profile.setId(id + 1);
         profile.setName(name);
         profile.setAge(age);
         profile.setGradyear(gradyr);
@@ -225,7 +230,7 @@ public class ProfileController implements Initializable {
         profileTable.refresh();
 
         
-        List<Profilemodel> profiles = readAll();
+        //List<Profilemodel> profiles = readAll();
         setTableData(profiles);
     }
 
@@ -247,11 +252,19 @@ public class ProfileController implements Initializable {
     void updateProfile(ActionEvent event) {
 
         Scanner scn = new Scanner(System.in);
+        
+        Profilemodel model = profileTable.getSelectionModel().getSelectedItem();
+        int id = model.getId();
 
-        System.out.println("Enter ID:");
-        //int id = scn.nextInt();
-        String text = idField.getText();
-        int id = Integer.parseInt(text);
+        profileTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        ObservableList<Profilemodel> selectedRows = profileTable.getSelectionModel().getSelectedItems();
+        ArrayList<Profilemodel> rows = new ArrayList<>(selectedRows);
+        update(readById(id));
+
+//        System.out.println("Enter ID:");
+//        //int id = scn.nextInt();
+//        String text = idField.getText();
+//        int id = Integer.parseInt(text);
 
         System.out.println("Enter Name:");
         //String name = scn.next();
@@ -273,8 +286,9 @@ public class ProfileController implements Initializable {
         // create a like instance
         Profilemodel profile = new Profilemodel();
 
+        
         // set properties
-        profile.setId(id);
+        //profile.setId(id);
         profile.setName(name);
         profile.setAge(age);
         profile.setGradyear(gradyr);

@@ -69,6 +69,15 @@ public class MessageController implements Initializable {
     private TableColumn<Messagemodel, String> Pm;
 
     private ObservableList<Messagemodel> messageData;
+    
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField idField;
+    
+    @FXML
+    private TextField messageNameField;
 
     @FXML
     private ImageView image;
@@ -89,31 +98,42 @@ public class MessageController implements Initializable {
         Scanner input = new Scanner(System.in);
 
         // read input from command line
-        System.out.println("Enter ID: ");
-        int id = input.nextInt();
+//        System.out.println("Enter ID: ");
+//        //int id = input.nextInt();
+//        String text = idField.getText();
+//        int id = Integer.parseInt(text);
 
         ////https://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo
-        input.nextLine();
+        //input.nextLine();
 
         System.out.println("Enter Name: ");
-        String name = input.nextLine();
+        String name = nameField.getText();
 
         System.out.println("Enter the name of your Private Message: ");
-        String pmname = input.nextLine();
+        String pmname = messageNameField.getText();
 
+        System.out.println("Enter message: ");
         String message = textboxPost.getText();
 
         // create a pm instance
         Messagemodel yourMessage = new Messagemodel();
 
+        List<Messagemodel> messages1 = readAll();
+        int id = messages1.size();
+        
         // set properties
-        yourMessage.setID(id);
+        yourMessage.setId(id + 1);
+        // set properties
+        yourMessage.setId(id);
         yourMessage.setName(name);
-        yourMessage.setPmName(pmname);
-        yourMessage.setPm(message);
-
+        yourMessage.setPname(pmname);
+        yourMessage.setMessage(message);
+        
+        
         //save this student to the database by calling Create operation
         create(yourMessage);
+        
+        messageTable.refresh();
         List<Messagemodel> messages = readAll();
         setTableData(messages);
     }
@@ -140,7 +160,7 @@ public class MessageController implements Initializable {
 //            alert.showAndWait();
 //        }
         Messagemodel model = messageTable.getSelectionModel().getSelectedItem();
-        int id = model.getID();
+        int id = model.getId();
 
         messageTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         ObservableList<Messagemodel> selectedRows = messageTable.getSelectionModel().getSelectedItems();
@@ -235,12 +255,12 @@ public class MessageController implements Initializable {
         //Code from Demo
         manager = (EntityManager) Persistence.createEntityManagerFactory("group9PU").createEntityManager();
 
-        ID.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        ID.setCellValueFactory(new PropertyValueFactory<>("Id"));
         Name.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        PmName.setCellValueFactory(new PropertyValueFactory<>("PmName"));
-        Pm.setCellValueFactory(new PropertyValueFactory<>("Pm"));
+        PmName.setCellValueFactory(new PropertyValueFactory<>("Pname"));
+        Pm.setCellValueFactory(new PropertyValueFactory<>("Message"));
 
-        //messageTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        messageTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     /* 
@@ -251,7 +271,7 @@ public class MessageController implements Initializable {
         try {
             manager.getTransaction().begin();
 
-            if (yourMessage.getID() != null) {
+            if (yourMessage.getId() != null) {
                 manager.persist(yourMessage);
                 manager.getTransaction().commit();
                 System.out.println(yourMessage.toString() + "has been created");
@@ -288,7 +308,7 @@ public class MessageController implements Initializable {
 
     public void delete(Messagemodel post) {
             try {
-                Messagemodel existingPost = manager.find(Messagemodel.class, post.getID());
+                Messagemodel existingPost = manager.find(Messagemodel.class, post.getId());
 
             // sanity check
                 if (existingPost != null) {

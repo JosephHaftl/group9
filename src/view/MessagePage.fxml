@@ -7,8 +7,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="573.0" style="-fx-background-color: LIGHTCYAN;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MessageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="578.0" style="-fx-background-color: LIGHTCYAN;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MessageController">
    <children>
       <ImageView fx:id="initData" fitHeight="72.0" fitWidth="86.0" layoutX="2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -19,7 +20,7 @@
       <Button layoutX="250.0" layoutY="26.0" mnemonicParsing="false" onAction="#actionShowHome" text="Home" />
       <Button layoutX="327.0" layoutY="26.0" mnemonicParsing="false" onAction="#actionShowProfile" text="Profile" />
       <Button layoutX="469.0" layoutY="26.0" mnemonicParsing="false" opacity="0.43" text="Messages" />
-      <TableView fx:id="messageTable" layoutX="101.0" layoutY="97.0" prefHeight="391.0" prefWidth="378.0">
+      <TableView fx:id="messageTable" layoutX="98.0" layoutY="82.0" prefHeight="391.0" prefWidth="378.0">
         <columns>
           <TableColumn fx:id="ID" prefWidth="39.055686950683594" text="ID" />
           <TableColumn fx:id="Name" prefWidth="89.08273315429688" text="Name" />
@@ -31,5 +32,8 @@
       <Button layoutX="355.0" layoutY="515.0" mnemonicParsing="false" onAction="#createMessage" prefWidth="65.0" text="Create" />
       <Button layoutX="428.0" layoutY="515.0" mnemonicParsing="false" onAction="#deleteMessage" text="Delete" />
       <Button layoutX="495.0" layoutY="515.0" mnemonicParsing="false" onAction="#viewMessage" text="View" />
+      <TextField fx:id="nameField" layoutX="100.0" layoutY="553.0" />
+      <Text layoutX="60.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+      <TextField fx:id="messageNameField" layoutX="313.0" layoutY="553.0" />
    </children>
 </AnchorPane>
