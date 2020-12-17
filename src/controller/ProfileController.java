@@ -253,18 +253,18 @@ public class ProfileController implements Initializable {
 
         Scanner scn = new Scanner(System.in);
         
-        Profilemodel model = profileTable.getSelectionModel().getSelectedItem();
-        int id = model.getId();
+//        Profilemodel model = profileTable.getSelectionModel().getSelectedItem();
+//        int id = model.getId();
+//
+//        profileTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+//        ObservableList<Profilemodel> selectedRows = profileTable.getSelectionModel().getSelectedItems();
+//        ArrayList<Profilemodel> rows = new ArrayList<>(selectedRows);
+//        update(readById(id));
 
-        profileTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        ObservableList<Profilemodel> selectedRows = profileTable.getSelectionModel().getSelectedItems();
-        ArrayList<Profilemodel> rows = new ArrayList<>(selectedRows);
-        update(readById(id));
-
-//        System.out.println("Enter ID:");
-//        //int id = scn.nextInt();
-//        String text = idField.getText();
-//        int id = Integer.parseInt(text);
+        System.out.println("Enter ID:");
+        //int id = scn.nextInt();
+        String text = idField.getText();
+        int id = Integer.parseInt(text);
 
         System.out.println("Enter Name:");
         //String name = scn.next();
@@ -288,7 +288,7 @@ public class ProfileController implements Initializable {
 
         
         // set properties
-        //profile.setId(id);
+        profile.setId(id);
         profile.setName(name);
         profile.setAge(age);
         profile.setGradyear(gradyr);
